@@ -1,0 +1,9 @@
+qt-roxeeplatipus
+================
+
+Various standalone stuff to help the webroxer (mainly devices for now).
+This is meant to hold platform stuff that QT doesn't implement at all, or implement partially / bogusly.
+Typically, Lion FullScreen support, proper frameless window, remote control support, etc.
+
+Licensed under BSD2.
+Will build dependencies (see third-party).
