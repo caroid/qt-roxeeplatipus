@@ -8,7 +8,7 @@
 
 @class AppleRemote;
 @interface SaucisseMain : NSObject <NSWindowDelegate>
--(SaucisseMain*) setCallback: (RoxeePlatipus::RemoteMerguez *) merguez;
+-(void) setCallback: (RoxeePlatipus::RemoteMerguez *) merguez;
  RoxeePlatipus::RemoteMerguez * memere;
 @end
 
@@ -21,7 +21,7 @@
          memere->hello(event, pressedDown);
     }
 
--(SaucisseMain*) setCallback: (RoxeePlatipus::RemoteMerguez *) merguez
+-(void) setCallback: (RoxeePlatipus::RemoteMerguez *) merguez
 {
     memere = merguez;
 }
@@ -53,7 +53,7 @@ QObject(parent)
     win->installEventFilter(this);
 }
 
-bool RemoteMerguez::eventFilter(QObject *object, QEvent *event)
+bool RemoteMerguez::eventFilter(QObject */*object*/, QEvent *event)
 {
     switch(event->type()){
     case QEvent::WindowActivate:
@@ -61,6 +61,8 @@ bool RemoteMerguez::eventFilter(QObject *object, QEvent *event)
         break;
     case QEvent::WindowDeactivate:
         [d->rem stopListening: d->saucisse];
+        break;
+    default:
         break;
     }
     return false;

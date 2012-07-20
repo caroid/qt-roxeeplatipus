@@ -21,6 +21,7 @@ OBJECTIVE_SOURCES +=    mac/cocoainit.mm
 # Implementation
 OBJECTIVE_SOURCES +=    mac/apputils.mm
 OBJECTIVE_SOURCES +=    mac/merguez.mm
+OBJECTIVE_SOURCES +=    mac/lesserwindow.mm
 
 DEFINES += PLATIPUS_FULLSCREEN
 

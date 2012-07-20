@@ -47,6 +47,7 @@ SOURCES +=  root.cpp
 
 HEADERS +=  include/libroxeeplatipus/libroxeeplatipus_global.h \
             include/libroxeeplatipus/root.h \
+            include/libroxeeplatipus/lesserwindow.h \
             include/libroxeeplatipus/apputils.h \
             include/libroxeeplatipus/merguez.h
 
