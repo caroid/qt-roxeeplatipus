@@ -21,20 +21,27 @@ OBJECTIVE_SOURCES +=    mac/cocoainit.mm
 # Implementation
 OBJECTIVE_SOURCES +=    mac/apputils.mm
 OBJECTIVE_SOURCES +=    mac/merguez.mm
+OBJECTIVE_SOURCES +=    mac/mediakeys.mm
 OBJECTIVE_SOURCES +=    mac/lesserwindow.mm
 
 DEFINES += PLATIPUS_FULLSCREEN
 
 
 OBJECTIVE_SOURCES +=    $${PWD}/../third-party/apple_remote_control/AppleRemote.m\
-                        $${PWD}/../third-party//apple_remote_control/RemoteControl.m\
-                        $${PWD}/../third-party//apple_remote_control/MultiClickRemoteBehavior.m\
-                        $${PWD}/../third-party//apple_remote_control/HIDRemoteControlDevice.m\
+                        $${PWD}/../third-party/apple_remote_control/RemoteControl.m\
+                        $${PWD}/../third-party/apple_remote_control/MultiClickRemoteBehavior.m\
+                        $${PWD}/../third-party/apple_remote_control/HIDRemoteControlDevice.m\
 
-OBJECTIVE_HEADERS +=    $${PWD}/../third-party//apple_remote_control/AppleRemote.h\
-                        $${PWD}/../third-party//apple_remote_control/RemoteControl.h\
-                        $${PWD}/../third-party//apple_remote_control/MultiClickRemoteBehavior.h\
-                        $${PWD}/../third-party//apple_remote_control/HIDRemoteControlDevice.h\
+OBJECTIVE_HEADERS +=    $${PWD}/../third-party/apple_remote_control/AppleRemote.h\
+                        $${PWD}/../third-party/apple_remote_control/RemoteControl.h\
+                        $${PWD}/../third-party/apple_remote_control/MultiClickRemoteBehavior.h\
+                        $${PWD}/../third-party/apple_remote_control/HIDRemoteControlDevice.h\
+
+
+LIBS += -framework Carbon
+
+OBJECTIVE_HEADERS +=    $${PWD}/../third-party/SPMediaKeyTap/SPMediaKeyTap.h
+OBJECTIVE_SOURCES +=    $${PWD}/../third-party/SPMediaKeyTap/SPMediaKeyTap.m
 
     #    mac/SPMediaKeyTap.m\
     #    mac/SPMediaKeyTapDelegate.m\
