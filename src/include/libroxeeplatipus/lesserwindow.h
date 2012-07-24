@@ -20,7 +20,7 @@
 #ifndef ROXEEPLATIPUS_LESSERWINDOW_H
 #define ROXEEPLATIPUS_LESSERWINDOW_H
 
-#include "libroxeeplatipus_global.h"
+#include "libroxeeplatipus/libroxeeplatipus_global.h"
 #include <QWidget>
 
 namespace RoxeePlatipus {

@@ -1,31 +1,79 @@
 #include <AppKit/NSWindow.h>
 
-#include "merguez.h"
+#include "libroxeeplatipus/merguez.h"
 #include "cocoainit.h"
 #include "AppleRemote.h"
 #include "RemoteControl.h"
-#include <QDebug>
 
 @class AppleRemote;
-@interface SaucisseMain : NSObject <NSWindowDelegate>
--(void) setCallback: (RoxeePlatipus::RemoteMerguez *) merguez;
- RoxeePlatipus::RemoteMerguez * memere;
+@interface SaucisseMain : NSObject {
+    RemoteControl* remoteControl;
+    RoxeePlatipus::RemoteMerguez * memere;
+//	MultiClickRemoteBehavior* remoteBehavior;
+//	IBOutlet NSView*		feedbackView;
+//	IBOutlet NSTextField*	feedbackText;
+}
+
+- (RemoteControl*) remoteControl;
+- (void) setRemoteControl: (RemoteControl*) newControl;
+
+- (void) setupBase: (RoxeePlatipus::RemoteMerguez *) merguez;
+- (void) start;
+- (void) stop;
+
 @end
 
 @implementation SaucisseMain
-    // implementation file
-    - (void) sendRemoteButtonEvent: (RemoteControlEventIdentifier) event
-                       pressedDown: (BOOL) pressedDown
-                       remoteControl: (RemoteControl*) remoteControl
-    {
-         memere->hello(event, pressedDown);
-    }
-
--(void) setCallback: (RoxeePlatipus::RemoteMerguez *) merguez
-{
-    memere = merguez;
+- (void) dealloc {
+    [remoteControl autorelease];
+    [memere autorelease];
+    [super dealloc];
 }
 
+// implementation file
+- (void) sendRemoteButtonEvent: (RemoteControlEventIdentifier) event
+                   pressedDown: (BOOL) pressedDown
+                   remoteControl: (RemoteControl*) remoteControl
+ {
+     memere->hello(event, pressedDown);
+ }
+
+-(void) setupBase: (RoxeePlatipus::RemoteMerguez *) merguez
+ {
+    memere = merguez;
+
+    AppleRemote* newRemoteControl = [[[AppleRemote alloc] initWithDelegate: self] autorelease];
+    [newRemoteControl setDelegate: self];
+    [self setRemoteControl: newRemoteControl];
+
+    //	// OPTIONAL CODE
+//	// The MultiClickRemoteBehavior adds extra functionality.
+//	// It works like a middle man between the delegate and the remote control
+//	remoteBehavior = [MultiClickRemoteBehavior new];
+//	[remoteBehavior setDelegate: self];
+//	[newRemoteControl setDelegate: remoteBehavior];
+
+}
+
+// for bindings access
+- (RemoteControl*) remoteControl {
+    return remoteControl;
+}
+- (void) setRemoteControl: (RemoteControl*) newControl {
+    [remoteControl autorelease];
+    remoteControl = [newControl retain];
+}
+
+
+-(void) start
+ {
+    [remoteControl startListening: self];
+ }
+
+-(void) stop
+ {
+    [remoteControl stopListening: self];
+ }
 @end
 
 
@@ -43,24 +91,25 @@ QObject(parent)
     CocoaInitializer initializer;
     d = new Private();
     d->saucisse = [SaucisseMain alloc];
-    [d->saucisse setCallback: this];
-    d->rem = [AppleRemote alloc];
-    [d->rem initWithDelegate: d->saucisse];
-    if(win->isActiveWindow())
-        [d->rem startListening: d->saucisse];
-    else
-        [d->rem stopListening: d->saucisse];
+    [d->saucisse setupBase: this];
+    if(win->isActiveWindow()){
+        [d->saucisse start];
+    }else{
+        [d->saucisse stop];
+    }
     win->installEventFilter(this);
 }
 
 bool RemoteMerguez::eventFilter(QObject */*object*/, QEvent *event)
 {
+    if((event->type() == QEvent::WindowDeactivate) || (event->type() == QEvent::WindowDeactivate))
+        CocoaInitializer initializer;
     switch(event->type()){
     case QEvent::WindowActivate:
-        [d->rem startListening: d->saucisse];
+        [d->saucisse start];
         break;
     case QEvent::WindowDeactivate:
-        [d->rem stopListening: d->saucisse];
+        [d->saucisse stop];
         break;
     default:
         break;

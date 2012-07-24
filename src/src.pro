@@ -39,26 +39,37 @@ unix:!mac {
 }
 
 INCLUDEPATH += $$PWD
-INCLUDEPATH += $$PWD/include/libroxeeplatipus
+INCLUDEPATH += $$PWD/include
 target.path = $$DESTDIR
 INSTALLS += target
 
-SOURCES +=  root.cpp
+SOURCES +=  $$PWD/root.cpp\
+    $$PWD/powermanager.cpp
 
-HEADERS +=  include/libroxeeplatipus/libroxeeplatipus_global.h \
-            include/libroxeeplatipus/root.h \
-            include/libroxeeplatipus/lesserwindow.h \
-            include/libroxeeplatipus/apputils.h \
-            include/libroxeeplatipus/merguez.h \
-            include/libroxeeplatipus/mediakeys.h
+HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
+            $$PWD/include/libroxeeplatipus/root.h \
+            $$PWD/include/libroxeeplatipus/lesserwindow.h \
+            $$PWD/include/libroxeeplatipus/apputils.h \
+            $$PWD/include/libroxeeplatipus/merguez.h \
+            $$PWD/include/libroxeeplatipus/mediakeys.h \
+            $$PWD/include/libroxeeplatipus/basepowermanagement.h \
+            $$PWD/include/libroxeeplatipus/powermanager.h
 
 win32 {
     SOURCES += win/apputils.cpp
     SOURCES += win/merguez.cpp
+    HEADERS += win/powermanagementwindows.h
+    SOURCES += win/powermanagementwindows.cpp
 }
 
 !mac:!win32{
     SOURCES += nux/apputils.cpp
     SOURCES += nux/merguez.cpp
+    QT += dbus
+    # The linux/dbus code is largely copied from  qBitTorrent Bittorrent Client,
+    # Copyright (C) 2011  Vladimir Golovnev <glassez@yandex.ru>
+    # Released under the GPL with an exception clause for OpenSSL
+    HEADERS += nux/powermanagementnux.h
+    SOURCES += nux/powermanagementnux.cpp
 }
 

@@ -1,7 +1,7 @@
 #ifndef ROXEEPLATIPUS_APPUTILS_H
 #define ROXEEPLATIPUS_APPUTILS_H
 
-#include "libroxeeplatipus_global.h"
+#include "libroxeeplatipus/libroxeeplatipus_global.h"
 #include <QtCore/qobject.h>
 
 #include <QtCore/QString>

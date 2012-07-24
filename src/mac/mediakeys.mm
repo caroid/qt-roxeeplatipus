@@ -1,10 +1,9 @@
 #include <AppKit/NSWindow.h>
 
-#include "mediakeys.h"
+#include "libroxeeplatipus/mediakeys.h"
 #include "cocoainit.h"
 #import <Cocoa/Cocoa.h>
 #import "SPMediaKeyTap.h"
-#include <QDebug>
 
 @interface SPMediaKeyTapExampleAppDelegate : NSObject <NSApplicationDelegate> {
     RoxeePlatipus::MediaKeys::MediaKeys * mk;
@@ -68,7 +67,6 @@ MediaKeys::MediaKeys(QWidget * win, QObject *parent) :
 QObject(parent)
 {
     d = new RoxeePlatipus::MediaKeys::Private();
-    qDebug() << "----------------------------------------------------------------------------------------------";
     CocoaInitializer initializer;
     d->delegate = [SPMediaKeyTapExampleAppDelegate alloc];
     d->delegate->mk = this;
@@ -79,9 +77,6 @@ QObject(parent)
     d->keyTap = [[SPMediaKeyTap alloc] initWithDelegate: d->delegate];
     if([SPMediaKeyTap usesGlobalMediaKeyTap]){
         [d->keyTap startWatchingMediaKeys];
-        NSLog(@"Media key monitoring ON");
-    }else{
-        NSLog(@"Media key monitoring disabled");
     }
     // Deactivate on background
     win->installEventFilter(this);
@@ -94,7 +89,6 @@ bool MediaKeys::eventFilter(QObject */*object*/, QEvent *event)
         [d->keyTap startWatchingMediaKeys];
         break;
     case QEvent::WindowDeactivate:
-        qDebug() << "STOOPOOP";
         [d->keyTap stopWatchingMediaKeys];
         break;
     default:

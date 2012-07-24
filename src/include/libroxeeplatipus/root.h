@@ -19,7 +19,7 @@ This code is distributed under the terms of the BSD license.
 #ifndef ROXEEPLATIPUS_ROOT_H
 #define ROXEEPLATIPUS_ROOT_H
 
-#include "libroxeeplatipus_global.h"
+#include "libroxeeplatipus/libroxeeplatipus_global.h"
 #include <QtCore/qobject.h>
 
 /*! \namespace RoxeePlatipus

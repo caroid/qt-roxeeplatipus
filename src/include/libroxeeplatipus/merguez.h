@@ -1,7 +1,7 @@
 #ifndef ROXEEPLATIPUS_MERGUEZ_H
 #define ROXEEPLATIPUS_MERGUEZ_H
 
-#include "libroxeeplatipus_global.h"
+#include "libroxeeplatipus/libroxeeplatipus_global.h"
 #include <QtCore/qobject.h>
 #include <QWidget>
 #include <QEvent>

@@ -17,7 +17,7 @@
  * Boston, MA  02110-1301  USA
  */
 
-#include "lesserwindow.h"
+#include "libroxeeplatipus/lesserwindow.h"
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QApplication>
@@ -34,9 +34,12 @@ LesserWindow::LesserWindow(QWidget *parent)
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSView *nsview = (NSView *) this->winId();
     NSWindow *nswindow = [nsview window];
+    NSResponder *resp = [nswindow firstResponder];
     [nswindow setMovableByWindowBackground: YES];
     NSUInteger masks = [nswindow styleMask];
+    // Changing style mask
     [nswindow setStyleMask: masks&~NSTitledWindowMask]; // NSBorderlessWindowMask|NSResizableWindowMask];
+    [nswindow makeFirstResponder: resp];
     [nswindow makeKeyAndOrderFront:nswindow];
     [pool release];
 }

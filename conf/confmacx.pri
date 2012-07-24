@@ -9,23 +9,11 @@
 
 LIBS += -framework AppKit -framework IOKit
 
-INCLUDEPATH += $${PWD}/../third-party//SPMediaKeyTap
-INCLUDEPATH += $${PWD}/../third-party//apple_remote_control
-
-
-INCLUDEPATH += $$PWD/mac
-HEADERS +=              mac/cocoainit.h
-OBJECTIVE_SOURCES +=    mac/cocoainit.mm
-
-
-# Implementation
-OBJECTIVE_SOURCES +=    mac/apputils.mm
-OBJECTIVE_SOURCES +=    mac/merguez.mm
-OBJECTIVE_SOURCES +=    mac/mediakeys.mm
-OBJECTIVE_SOURCES +=    mac/lesserwindow.mm
-
-DEFINES += PLATIPUS_FULLSCREEN
-
+###################
+# Dependencies
+###################
+INCLUDEPATH += $${PWD}/../third-party/SPMediaKeyTap
+INCLUDEPATH += $${PWD}/../third-party/apple_remote_control
 
 OBJECTIVE_SOURCES +=    $${PWD}/../third-party/apple_remote_control/AppleRemote.m\
                         $${PWD}/../third-party/apple_remote_control/RemoteControl.m\
@@ -37,13 +25,29 @@ OBJECTIVE_HEADERS +=    $${PWD}/../third-party/apple_remote_control/AppleRemote.
                         $${PWD}/../third-party/apple_remote_control/MultiClickRemoteBehavior.h\
                         $${PWD}/../third-party/apple_remote_control/HIDRemoteControlDevice.h\
 
-
 LIBS += -framework Carbon
 
 OBJECTIVE_HEADERS +=    $${PWD}/../third-party/SPMediaKeyTap/SPMediaKeyTap.h
 OBJECTIVE_SOURCES +=    $${PWD}/../third-party/SPMediaKeyTap/SPMediaKeyTap.m
 
-    #    mac/SPMediaKeyTap.m\
-    #    mac/SPMediaKeyTapDelegate.m\
-    #    mac/SPInvocationGrabbing/NSObject+SPInvocationGrabbing.m
 
+###################
+# Main lib
+###################
+INCLUDEPATH += $$PWD/../src/mac
+
+# Cocoa helper
+HEADERS +=              $$PWD/../src/mac/cocoainit.h
+OBJECTIVE_SOURCES +=    $$PWD/../src/mac/cocoainit.mm
+
+# Implementation
+OBJECTIVE_SOURCES +=    $$PWD/../src/mac/apputils.mm
+OBJECTIVE_SOURCES +=    $$PWD/../src/mac/merguez.mm
+OBJECTIVE_SOURCES +=    $$PWD/../src/mac/mediakeys.mm
+OBJECTIVE_SOURCES +=    $$PWD/../src/mac/lesserwindow.mm
+
+HEADERS += $$PWD/../src/mac/powermanagementmac.h
+SOURCES += $$PWD/../src/mac/powermanagementmac.cpp
+
+# Use Lion Fullscreen if available
+DEFINES += PLATIPUS_FULLSCREEN
