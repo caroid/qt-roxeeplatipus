@@ -31,6 +31,8 @@ public:
     explicit LesserWindow(QWidget *parent = 0);
     int x() const;
     int y() const;
+    bool minimizeOnDoubleClick() const;
+    bool hasNaturalStyle() const;
 
     //    void toto();
 //    void setGeometry(int x, int y, int w, int h);

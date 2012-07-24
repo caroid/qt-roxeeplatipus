@@ -25,8 +25,12 @@
 //#include <AppKit/NSDockTile.h>
 #include <AppKit/NSApplication.h>
 #include <AppKit/NSWindow.h>
+#include <AppKit/NSUserDefaultsController.h>
 
 namespace RoxeePlatipus{
+
+// Access system prefs in a funky way
+// http://stackoverflow.com/questions/6099338/how-to-know-if-window-is-minimizable-when-titlebar-was-double-clicked
 
 LesserWindow::LesserWindow(QWidget *parent)
     : QWidget(parent)
@@ -60,6 +64,28 @@ int LesserWindow::y() const
     NSWindow *nswindow = [nsview window];
     return (r.height() - [nswindow frame].origin.y - [nswindow frame].size.height);
 }
+
+bool LesserWindow::minimizeOnDoubleClick() const
+{
+    //Get settings from "System Preferences" >  "Appearance" > "Double-click on windows title bar to minimize"
+    NSString *const MDAppleMiniaturizeOnDoubleClickKey = @"AppleMiniaturizeOnDoubleClick";
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults addSuiteNamed:NSGlobalDomain];
+    return [[userDefaults objectForKey:MDAppleMiniaturizeOnDoubleClickKey] boolValue];
+}
+
+bool LesserWindow::hasNaturalStyle() const
+{
+    NSString * const kAppleAquaColorVariant = @"AppleAquaColorVariant";
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults addSuiteNamed:NSGlobalDomain];
+    NSNumber *color = [userDefaults objectForKey:kAppleAquaColorVariant];
+    // graphite is 6
+    // acqua is 1
+    return !([color intValue] == 6);
+}
+
+
 }
 
 //int MainWidget::x()
