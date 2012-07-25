@@ -26,6 +26,8 @@
 #include <AppKit/NSApplication.h>
 #include <AppKit/NSWindow.h>
 #include <AppKit/NSUserDefaultsController.h>
+#include <QApplication>
+#include <QDesktopWidget>
 
 namespace RoxeePlatipus{
 
@@ -38,14 +40,21 @@ LesserWindow::LesserWindow(QWidget *parent)
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSView *nsview = (NSView *) this->winId();
     NSWindow *nswindow = [nsview window];
-    NSResponder *resp = [nswindow firstResponder];
-    [nswindow setMovableByWindowBackground: YES];
-    NSUInteger masks = [nswindow styleMask];
     // Changing style mask
-    [nswindow setStyleMask: masks&~NSTitledWindowMask]; // NSBorderlessWindowMask|NSResizableWindowMask];
-    [nswindow makeFirstResponder: resp];
-    [nswindow makeKeyAndOrderFront:nswindow];
+    if([nswindow respondsToSelector:@selector(toggleFullScreen:)]){
+        // Lion get this
+        NSResponder *resp = [nswindow firstResponder];
+        [nswindow setMovableByWindowBackground: YES];
+        NSUInteger masks = [nswindow styleMask];
+        [nswindow setStyleMask: masks&~NSTitledWindowMask]; // NSBorderlessWindowMask|NSResizableWindowMask];
+        [nswindow makeFirstResponder: resp];
+        [nswindow makeKeyAndOrderFront:nswindow];
+    }else{
+        // Non Lion get the usual punishment - nothing else seems to work - and break havoc when coming from fullscreen
+        this->setWindowFlags(Qt::FramelessWindowHint);//  | Qt::WindowSystemMenuHint);
+    }
     [pool release];
+    installEventFilter(this);
 }
 
 // The reason for this is that QT is broken when it comes to maximize and/or n/ne/w resizing
@@ -85,6 +94,102 @@ bool LesserWindow::hasNaturalStyle() const
     return !([color intValue] == 6);
 }
 
+bool LesserWindow::needsResizer() const
+{
+    NSView *nsview = (NSView *) this->winId();
+    NSWindow *nswindow = [nsview window];
+    // Lion get this
+    return ![nswindow respondsToSelector:@selector(toggleFullScreen:)];
+}
+
+//bool LesserWindow::eventFilter(QObject * object, QEvent *event)
+//{
+//    qDebug() << "have" << event->type();
+//    NSView *nsview = (NSView *) this->winId();
+//    NSWindow *nswindow = [nsview window];
+//    NSRect f = [nswindow frame];
+
+//    switch(event->type()){
+//    case QEvent::Resize:
+//    case QEvent::UpdateRequest:
+//        [nsview setFrame: NSMakeRect(0, 0, f.size.width, f.size.height)];
+//        [nsview setNeedsDisplay: YES];
+//        qDebug() << "IN the mix";
+//        break;
+////    case QEvent::MouseButtonPress:
+////    case QEvent::MouseButtonRelease:
+////    case QEvent::MouseButtonDblClick:
+////    case QEvent::MouseMove:
+////    case QEvent::WindowActivate:
+////    case QEvent::WindowDeactivate:
+////    case QEvent::Paint:
+//    default:
+//        break;
+//    }
+//    return QWidget::eventFilter(object, event);
+//}
+
+//void LesserWindow::repaint()
+//{
+//    qDebug() << "REPAINTTTTTT";
+//    NSView *nsview = (NSView *) this->winId();
+//    NSWindow *nswindow = [nsview window];
+//    NSRect f = [nswindow frame];
+//    [nsview setFrame: NSMakeRect(0, -5, f.size.width, f.size.height + 50)];
+//}
+
+//void LesserWindow::update()
+//{
+//    qDebug() << "UPDATE";
+//    NSView *nsview = (NSView *) this->winId();
+//    NSWindow *nswindow = [nsview window];
+//    NSRect f = [nswindow frame];
+//    [nsview setFrame: NSMakeRect(0, -5, f.size.width, f.size.height + 50)];
+//}
+
+/*
+void LesserWindow::setGeometry(int x, int y, int w, int h)
+{
+    qDebug() << "Trix and trix";
+
+    QDesktopWidget * d = QApplication::desktop();
+    QRect r = d->screenGeometry();
+
+    NSView *nsview = (NSView *) this->winId();
+    NSWindow *nswindow = [nsview window];
+    // First, position the window itself correctly
+//    [nswindow setFrameTopLeftPoint: NSMakePoint(x, r.height() - y)];
+//    qDebug() << x;
+//    qDebug() << r.width();
+//    qDebug() << y;
+//    qDebug() << r.height() - y;
+    // Now, put the frame
+    [nsview setFrame: NSMakeRect(0, 20, w, h + 20)];
+
+    int dy = y - this->y();
+//    NSFrameRect * f = [nswindow frame];
+    int fy = [nsview frame].origin.y + dy;
+//    [nsview setFrame: NSMakeRect(x, y, w, h)];
+    qDebug() << [nsview frame].origin.x;
+    qDebug() << [nsview frame].origin.y;
+    qDebug() << [nsview frame].size.width;
+    qDebug() << [nsview frame].size.height;
+    qDebug() << x;
+    qDebug() << y;
+    qDebug() << w;
+    qDebug() << h;
+    qDebug() << [nsview frame].origin.x;
+    qDebug() << [nsview frame].origin.y - dy;
+    qDebug() << [nsview frame].size.width;
+    qDebug() << [nsview frame].size.height;
+//    QWidget::setGeometry(x, y, w, h);
+//    [nswindow frame].origin.x = x;
+//    [nswindow frame].origin.y = [nswindow frame].origin.y + dy;
+//    [nswindow frame].size.w = w;
+//    [nswindow frame].size.h = h;
+}
+
+*/
 
 }
 

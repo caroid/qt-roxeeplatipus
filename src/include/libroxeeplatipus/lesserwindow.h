@@ -33,7 +33,14 @@ public:
     int y() const;
     bool minimizeOnDoubleClick() const;
     bool hasNaturalStyle() const;
+    bool needsResizer() const;
+//    bool eventFilter(QObject * object, QEvent *event);
 
+//    void setGeometry(int x, int y, int w, int h);
+
+public Q_SLOTS:
+//    void repaint();
+//    void update();
     //    void toto();
 //    void setGeometry(int x, int y, int w, int h);
 
@@ -139,8 +146,9 @@ signals:
 //    void hasFileDrop(const QString & path);
 //    void hasDirectoryDrop(const QString & path);
 
-public slots:
-    
+//public slots:
+
+
 };
 }
 

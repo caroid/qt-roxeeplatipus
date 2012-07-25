@@ -54,8 +54,9 @@ bool AppUtils::isFullScreen(QWidget * mainWindow)
 bool AppUtils::fullscrenToggle(QWidget * mainWindow)
 {
 #ifndef PLATIPUS_FULLSCREEN
-    if(mainWindow->isFullScreen())
+    if(!mainWindow->isFullScreen()){
         mainWindow->showFullScreen();
+    }
     else if(mainWindow->isMaximized())
         mainWindow->showMaximized();
     else
@@ -74,7 +75,7 @@ bool AppUtils::fullscrenToggle(QWidget * mainWindow)
         result = masks & NSFullScreenWindowMask;
         return result;
     }else{
-        if(mainWindow->isFullScreen())
+        if(!mainWindow->isFullScreen())
             mainWindow->showFullScreen();
         else if(mainWindow->isMaximized())
             mainWindow->showMaximized();
