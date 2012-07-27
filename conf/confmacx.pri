@@ -12,11 +12,12 @@ INCLUDEPATH += $${PWD}/../third-party/apple_remote_control
 OBJECTIVE_SOURCES +=    $${PWD}/../third-party/apple_remote_control/AppleRemote.m\
                         $${PWD}/../third-party/apple_remote_control/RemoteControl.m\
                         $${PWD}/../third-party/apple_remote_control/MultiClickRemoteBehavior.m\
-                        $${PWD}/../third-party/apple_remote_control/HIDRemoteControlDevice.m\
+                        $${PWD}/../third-party/apple_remote_control/HIDRemoteControlDevice.m
+
 OBJECTIVE_HEADERS +=    $${PWD}/../third-party/apple_remote_control/AppleRemote.h\
                         $${PWD}/../third-party/apple_remote_control/RemoteControl.h\
                         $${PWD}/../third-party/apple_remote_control/MultiClickRemoteBehavior.h\
-                        $${PWD}/../third-party/apple_remote_control/HIDRemoteControlDevice.h\
+                        $${PWD}/../third-party/apple_remote_control/HIDRemoteControlDevice.h
 
 LIBS += -framework Carbon
 OBJECTIVE_HEADERS +=    $${PWD}/../third-party/SPMediaKeyTap/SPMediaKeyTap.h
