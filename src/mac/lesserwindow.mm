@@ -28,16 +28,60 @@
 #include <AppKit/NSUserDefaultsController.h>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <Cocoa/Cocoa.h>
+
+
+//@interface DockIconClickEventHandler : NSObject
+//{
+//@public
+//    RoxeePlatipus::LesserWindow* monitor;
+//}
+//- (void)handle:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent;
+//@end
+
+//@implementation DockIconClickEventHandler
+//- (void)handle:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
+//    NSLog(@"Has clikcy deep inside");
+//    if (monitor)
+//        monitor->emitClicky();
+//}
+//@end
+
 
 namespace RoxeePlatipus{
 
 // Access system prefs in a funky way
 // http://stackoverflow.com/questions/6099338/how-to-know-if-window-is-minimizable-when-titlebar-was-double-clicked
 
+//class LesserWindow::Private
+//{
+//    public:
+//        DockIconClickEventHandler* handler;
+//};
+
 LesserWindow::LesserWindow(QWidget *parent)
     : QWidget(parent)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+//    // Clicky handler
+//    d = new LesserWindow::Private();
+//    d->handler = [[DockIconClickEventHandler alloc] init];
+//    d->handler->monitor = this;
+
+//    [[NSAppleEventManager sharedAppleEventManager]
+//     setEventHandler:d->handler
+//     andSelector:@selector(handle:withReplyEvent:)
+//     forEventClass:kCoreEventClass
+//     andEventID:kAEReopenApplication];
+//    // End of clicky handler
+
+//    qDebug() << "Installed shity click";
+
+
+
+
+
     NSView *nsview = (NSView *) this->winId();
     NSWindow *nswindow = [nsview window];
     // Changing style mask
@@ -53,9 +97,21 @@ LesserWindow::LesserWindow(QWidget *parent)
         // Non Lion get the usual punishment - nothing else seems to work - and break havoc when coming from fullscreen
         this->setWindowFlags(Qt::FramelessWindowHint);//  | Qt::WindowSystemMenuHint);
     }
+
     [pool release];
-    installEventFilter(this);
+//    installEventFilter(this);
 }
+
+//void LesserWindow::emitClicky()
+//{
+//    qDebug() << "Got a clicky click on the docky";
+//    emit dockIconClicked();
+//}
+
+//LesserWindow::~LesserWindow()
+//{
+//    delete d;
+//}
 
 // The reason for this is that QT is broken when it comes to maximize and/or n/ne/w resizing
 int LesserWindow::x() const

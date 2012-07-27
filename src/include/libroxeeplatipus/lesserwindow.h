@@ -29,6 +29,7 @@ class LIBROXEEPLATIPUSSHARED_EXPORT LesserWindow: public QWidget {
     Q_OBJECT
 public:
     explicit LesserWindow(QWidget *parent = 0);
+//    ~LesserWindow();
     int x() const;
     int y() const;
     bool minimizeOnDoubleClick() const;
@@ -37,6 +38,15 @@ public:
 //    bool eventFilter(QObject * object, QEvent *event);
 
 //    void setGeometry(int x, int y, int w, int h);
+
+
+//    void emitClicky();
+//signals:
+//    void dockIconClicked();
+
+//private:
+//    class Private;
+//    Private* d;
 
 public Q_SLOTS:
 //    void repaint();
@@ -141,8 +151,7 @@ protected:
 //    }
 
 
-signals:
-//    void outboundMouseMove();
+    //    void outboundMouseMove();
 //    void hasFileDrop(const QString & path);
 //    void hasDirectoryDrop(const QString & path);
 
