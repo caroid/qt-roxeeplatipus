@@ -1,9 +1,16 @@
-qt-roxeeplatipus
+================
+RoxeePlatipus
 ================
 
-Various standalone stuff to help the webroxer (mainly devices for now).
-This is meant to hold platform stuff that QT doesn't implement at all, or implement partially / bogusly.
-Typically, Lion FullScreen support, proper frameless window, remote control support, etc.
+This library is meant to provide functionalities and fixes that QT doesn't.
+As such it contains chunks of platform dependent code.
+If something can be done using only QT APIs, then it shouldn't be here.
+
+Currently, here is what it provides:
+OSX:
+- media key handling
+- apple remote support
+- Lion fullscreen (fallback on regular if not available)
+- proper frameless window
 
 Licensed under BSD2.
-Will build dependencies (see third-party).

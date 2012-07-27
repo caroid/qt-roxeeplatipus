@@ -1,3 +1,19 @@
+lessThan(QT_VERSION, $$ROXEE_MINIMUM_QT) {
+    error("$$ROXEE_PROJECT_NAME works only with Qt $$ROXEE_MINIMUM_QT or greater (you have $$QT_VERSION)")
+}
+
+contains(TEMPLATE, lib){
+    message(************************* Building Library *************************)
+}
+
+contains(TEMPLATE, app){
+    message(************************* Building App *************************)
+}
+
+contains(TEMPLATE, subdirs){
+    message(************************* Building Third-party *************************)
+}
+
 # QT basic config
 CONFIG +=   QT_NO_CAST_FROM_ASCII \
             QT_NO_CAST_TO_ASCII \
@@ -45,18 +61,31 @@ CONFIG(debug, debug|release){
 }
 DEFINES += PROJECT_BUILDTYPE=\\\"$${ROXEE_BUILD_TYPE}\\\"
 
-# Link
-FORCE_STATIC{
-    ROXEE_LINK_TYPE=static
+# Environment overrides
+renv=$$(ROXEE_LINK_TYPE)
+!isEmpty(renv){
+    message(Link type overriden by environment)
+    ROXEE_LINK_TYPE = $$renv
 }
 
-FORCE_DYNAMIC{
-    ROXEE_LINK_TYPE=dynamic
+renv=$$(ROXEE_THIRD_PARTY)
+!isEmpty(renv){
+    message(Third-party strategy overriden by environment)
+    ROXEE_THIRD_PARTY = $$renv
 }
 
-FORCE_PLUGIN{
-    ROXEE_LINK_TYPE=plugin
+renv=$$(ROXEE_DESTDIR)
+!isEmpty(renv){
+    message(Destdir overriden by environment)
+    ROXEE_DESTDIR = $$renv
 }
+
+renv=$$(ROXEE_EXTERNAL)
+!isEmpty(renv){
+    message(External deps specified by environment)
+    ROXEE_EXTERNAL = $$renv
+}
+
 
 DEFINES += PROJECT_LINKTYPE=\\\"$${ROXEE_LINK_TYPE}\\\"
 
@@ -81,7 +110,7 @@ message( -> Link: $${ROXEE_LINK_TYPE} version)
 
 
 # Setting path
-TMP_BASE_DIR = $${PWD}/../buildd/$${PLT}-tmp/$${QMAKE_CC}/$${ROXEE_LINK_TYPE}-$${ROXEE_BUILD_TYPE}
+TMP_BASE_DIR = $${PWD}/../buildd/$${PLT}-tmp/$${QMAKE_CC}-$${ROXEE_LINK_TYPE}-$${ROXEE_BUILD_TYPE}
 RCC_DIR     = $${TMP_BASE_DIR}/rcc
 UI_DIR      = $${TMP_BASE_DIR}/ui
 MOC_DIR     = $${TMP_BASE_DIR}/moc
@@ -92,20 +121,12 @@ message( -> Temp build dir: $${TMP_BASE_DIR})
 
 # If we don't have a specific destination directory
 isEmpty(ROXEE_DESTDIR){
-    DESTDIR = $${PWD}/../buildd/$${PLT}/$${QMAKE_CC}/$${ROXEE_LINK_TYPE}-$${ROXEE_BUILD_TYPE}
+    DESTDIR = $${PWD}/../buildd/$${PLT}/$${QMAKE_CC}-$${ROXEE_LINK_TYPE}-$${ROXEE_BUILD_TYPE}
 }else{
     DESTDIR = $${ROXEE_DESTDIR}
 }
 
 message( -> Using build destination dir $${DESTDIR})
-
-# Linking
-!isEmpty(ADDITIONAL_DEPENDENCIES_DIR){
-    INCLUDEPATH += $${ADDITIONAL_DEPENDENCIES_DIR}/include
-    LIBS += -L$${ADDITIONAL_DEPENDENCIES_DIR}/lib
-    message( -> Using external lib/include: $${ADDITIONAL_DEPENDENCIES_DIR})
-}
-
 
 # Only relevant for libs: enable dep tracking
 contains(TEMPLATE, lib){
@@ -132,7 +153,7 @@ contains(TEMPLATE, app){
 }
 
 mac{
-    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = $$ROXEE_MIN_OSX
 }
 
 win32{
@@ -172,5 +193,9 @@ win32{
 
 }
 
-
-
+# Linking
+!isEmpty(ROXEE_EXTERNAL){
+    INCLUDEPATH += $${ROXEE_EXTERNAL}/include
+    LIBS += -L$${ROXEE_EXTERNAL}/lib
+    message( -> Using external lib/include: $${ROXEE_EXTERNAL})
+}
