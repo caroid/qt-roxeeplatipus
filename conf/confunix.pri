@@ -9,3 +9,5 @@ SOURCES += $$PWD/../src/nux/powermanagementnux.cpp
 
 SOURCES += $$PWD/../src/nux/apputils.cpp
 SOURCES += $$PWD/../src/nux/merguez.cpp
+SOURCES += $$PWD/../src/nux/mediakeys.cpp
+SOURCES += $$PWD/../src/nux/lesserwindow.cpp
