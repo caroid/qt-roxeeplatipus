@@ -4,7 +4,7 @@
 #include "mac/powermanagementmac.h"
 #elif defined(Q_OS_WIN)
 #include "win/powermanagementwin.h"
-#elif defined(Q_OS_UNIX) && define(Q_DBUS_EXPORT)
+#elif defined(Q_OS_UNIX) && defined(Q_DBUS_EXPORT)
 #include "nux/powermanagementnux.h"
 #endif
 
@@ -16,7 +16,7 @@ RoxeePlatipus::BasePowerManagement * PowerManager::getManager(QObject * parent)
     return (RoxeePlatipus::BasePowerManagement *) new PowerManagementMac(parent);
 #elif defined(Q_OS_WIN)
     return (RoxeePlatipus::BasePowerManagement *) new PowerManagementWin(parent);
-#elif defined(Q_OS_UNIX) && define(Q_DBUS_EXPORT)
+#elif defined(Q_OS_UNIX) && defined(Q_DBUS_EXPORT)
     return (RoxeePlatipus::BasePowerManagement *) new PowerManagementNux(parent);
 #else
     return (RoxeePlatipus::BasePowerManagement *) new BasePowerManagement(parent);

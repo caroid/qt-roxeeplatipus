@@ -1,7 +1,7 @@
 #ifndef POWERMANAGEMENTNUX_H
 #define POWERMANAGEMENTNUX_H
 
-#include "basepowermanagement.h"
+#include "libroxeeplatipus/basepowermanagement.h"
 
 QT_BEGIN_NAMESPACE
 class QDBusPendingCallWatcher;
@@ -12,6 +12,8 @@ class PowerManagementNux : public RoxeePlatipus::BasePowerManagement
     Q_OBJECT
 public:
     explicit PowerManagementNux(QObject *parent = 0);
+    uint getState();
+    void setState(uint busy);
 
 signals:
 

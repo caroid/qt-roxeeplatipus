@@ -1,3 +1,5 @@
+INCLUDEPATH += $$PWD/../src/win
+
 SOURCES += $$PWD/../src/win/apputils.cpp
 SOURCES += $$PWD/../src/win/merguez.cpp
 HEADERS += $$PWD/../src/win/powermanagementwindows.h
