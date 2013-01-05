@@ -5,7 +5,7 @@ if [[ -d  "SPMediaKeyTap" ]]; then
     git pull --rebase
     cd -
 else
-    git clone git@github.com:webitup/SPMediaKeyTap.git
+    git clone git@github.com:Roxee/SPMediaKeyTap.git
 fi
 
 if [[ -d  "apple_remote_control" ]]; then
@@ -13,5 +13,5 @@ if [[ -d  "apple_remote_control" ]]; then
     git pull --rebase
     cd -
 else
-    git clone git@github.com:webitup/apple_remote_control.git
+    git clone git@github.com:Roxee/apple_remote_control.git
 fi

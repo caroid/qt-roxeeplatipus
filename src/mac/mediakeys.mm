@@ -6,13 +6,13 @@
 #import "SPMediaKeyTap.h"
 
 @interface SPMediaKeyTapExampleAppDelegate : NSObject <NSApplicationDelegate> {
+@public
     RoxeePlatipus::MediaKeys::MediaKeys * mk;
 }
 
 @end
 
 @implementation SPMediaKeyTapExampleAppDelegate
-
 -(void)mediaKeyTap:(SPMediaKeyTap*)keyTap receivedMediaKeyEvent:(NSEvent*)event;
 {
     NSAssert([event type] == NSSystemDefined && [event subtype] == SPSystemDefinedEventMediaKeys, @"Unexpected NSEvent in mediaKeyTap:receivedMediaKeyEvent:");

@@ -3,13 +3,12 @@ TEMPLATE = subdirs
 OTHER_FILES +=  $$PWD/README \
                 $$PWD/bootstrap.sh
 
-include($$PWD/../vars.pri)
-include($$PWD/../conf/confbase.pri)
+include($$PWD/../conf/conf.pri)
 
 # Only mac has deps for now
 mac{
-    contains(ROXEE_THIRD_PARTY, internal){
-        message( -> Using internal third-party)
+    !isEmpty(ROXEE_INTERNAL_VERSION){
+        message( -> Using internal third-party $${ROXEE_INTERNAL_VERSION})
         system(./bootstrap.sh)
     }
 }

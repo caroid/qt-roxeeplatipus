@@ -57,31 +57,31 @@ const QString Root::getQt(){
 
 const QString Root::getLibName(){
 #if defined(Q_OS_MAC)
-    return QString::fromAscii("apple-remote-control");
+    return QString::fromLatin1("apple-remote-control");
 #elif defined(Q_OS_WIN)
-    return QString::fromAscii("");
+    return QString::fromLatin1("");
 #else
-    return QString::fromAscii("");
+    return QString::fromLatin1("");
 #endif
 }
 
 const QString Root::getLibVersion(){
 #if defined(Q_OS_MAC)
-    return QString::fromAscii("0");
+    return QString::fromLatin1("0");
 #elif defined(Q_OS_WIN)
-    return QString::fromAscii("");
+    return QString::fromLatin1("");
 #else
-    return QString::fromAscii("");
+    return QString::fromLatin1("");
 #endif
 }
 
 const QString Root::getLibRevision(){
 #if defined(Q_OS_MAC)
-    return QString::fromAscii("0");
+    return QString::fromLatin1("0");
 #elif defined(Q_OS_WIN)
-    return QString::fromAscii("");
+    return QString::fromLatin1("");
 #else
-    return QString::fromAscii("");
+    return QString::fromLatin1("");
 #endif
 }
 
