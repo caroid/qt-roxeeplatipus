@@ -14,6 +14,14 @@ INCLUDEPATH += $$PWD/include
 target.path = $$DESTDIR
 INSTALLS += target
 
+# Copy headers to destination
+system(rm -Rf "$$DESTDIR/../include")
+system(mkdir -p "$$DESTDIR/../")
+system(cp -R "$$PWD/include" "$$DESTDIR/../")
+system(rm -Rf "$$DESTDIR/../share")
+system(mkdir -p "$$DESTDIR/../share/libroxeeplatipus")
+system(cp "$$PWD/../res/redist/*" "$$DESTDIR/../share/libroxeeplatipus")
+
 SOURCES +=  $$PWD/root.cpp\
             $$PWD/powermanager.cpp
 
@@ -24,17 +32,7 @@ HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/merguez.h \
             $$PWD/include/libroxeeplatipus/mediakeys.h \
             $$PWD/include/libroxeeplatipus/basepowermanagement.h \
-            $$PWD/include/libroxeeplatipus/powermanager.h
-
-# Copy headers to destination
-system(rm -Rf "$$DESTDIR/../include")
-system(mkdir -p "$$DESTDIR/../")
-system(cp -R "$$PWD/include" "$$DESTDIR/../")
-system(rm -Rf "$$DESTDIR/../share")
-system(mkdir -p "$$DESTDIR/../share/libroxeeplatipus")
-system(cp "$$PWD/../res/redist/*" "$$DESTDIR/../share/libroxeeplatipus")
-
-
+            $$PWD/include/libroxeeplatipus/powermanager.h \
 
 win32{
     INCLUDEPATH += $$PWD/../src/win

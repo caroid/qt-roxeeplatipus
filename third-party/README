@@ -12,7 +12,7 @@ More about media keys:
 http://overooped.com/post/2593597587/mediakeys
 
 These libraries will be fetched and compiled-in from webitup forks on github (under the same licenses):
-https://github.com/webitup/apple_remote_control
-https://github.com/webitup/SPMediaKeyTap
+https://github.com/Roxee/apple_remote_control
+https://github.com/Roxee/SPMediaKeyTap
 
 See bootstrap.sh if you want to change something.
