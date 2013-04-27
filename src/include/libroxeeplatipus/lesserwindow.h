@@ -35,8 +35,12 @@ public:
     bool minimizeOnDoubleClick() const;
     bool hasNaturalStyle() const;
     bool needsResizer() const;
-//    bool eventFilter(QObject * object, QEvent *event);
+    void startMovable();
+    void stopMovable();
 
+    //    bool eventFilter(QObject * object, QEvent *event);
+
+    void move(int x, int y);
 //    void setGeometry(int x, int y, int w, int h);
 
 

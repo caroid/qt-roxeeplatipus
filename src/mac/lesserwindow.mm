@@ -24,11 +24,11 @@
 #include <QRect>
 //#include <AppKit/NSDockTile.h>
 #include <AppKit/NSApplication.h>
-#include <AppKit/NSWindow.h>
-#include <AppKit/NSUserDefaultsController.h>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <Cocoa/Cocoa.h>
+#include <AppKit/NSWindow.h>
+#include <AppKit/NSUserDefaultsController.h>
 
 
 //@interface DockIconClickEventHandler : NSObject
@@ -81,23 +81,38 @@ LesserWindow::LesserWindow(QWidget *parent)
 
 
 
-
+    // XXX stoping here
+    // SetMovable works for QT5, not QT4 - and it's unproven what happens before OSX Lion
+    // Right now, the code is left in a state where it only works in QT5
+    // And has lots of bugs (on release stopShit doesn't work outside of the view)
     NSView *nsview = (NSView *) this->winId();
     NSWindow *nswindow = [nsview window];
     // Changing style mask
-    if([nswindow respondsToSelector:@selector(toggleFullScreen:)]){
+//    if([nswindow respondsToSelector:@selector(toggleFullScreen:)]){
+        // QT5 here
         // Lion get this
         NSResponder *resp = [nswindow firstResponder];
-        [nswindow setMovableByWindowBackground: YES];
-        NSUInteger masks = [nswindow styleMask];
-        [nswindow setStyleMask: masks&~NSTitledWindowMask]; // NSBorderlessWindowMask|NSResizableWindowMask];
+//        NSUInteger masks = [nswindow styleMask];
+//        [nswindow setStyleMask: masks&~NSTitledWindowMask]; // NSBorderlessWindowMask|NSResizableWindowMask]; &NSTexturedBackgroundWindowMask
+//        [nswindow setStyleMask: NSTitledWindowMask|NSTexturedBackgroundWindowMask|NSResizableWindowMask]; // NSBorderlessWindowMask|NSResizableWindowMask]; &NSTexturedBackgroundWindowMask
+        [nswindow setStyleMask: NSTitledWindowMask|NSTexturedBackgroundWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask|NSResizableWindowMask]; // NSBorderlessWindowMask|NSResizableWindowMask]; &NSTexturedBackgroundWindowMask
         [nswindow makeFirstResponder: resp];
         [nswindow makeKeyAndOrderFront:nswindow];
-    }else{
-        // Non Lion get the usual punishment - nothing else seems to work - and break havoc when coming from fullscreen
-        this->setWindowFlags(Qt::FramelessWindowHint);//  | Qt::WindowSystemMenuHint);
-    }
+        [nswindow setMovableByWindowBackground: NO];
+//        NSBorderlessWindowMask = 0,
+//        NSTitledWindowMask = 1 << 0,
+//        NSClosableWindowMask = 1 << 1,
+//        NSMiniaturizableWindowMask = 1 << 2,
+//        NSResizableWindowMask = 1 << 3,
+//        NSTexturedBackgroundWindowMask = 1 << 8
 
+        //    }else{
+//        // QT4 here
+//        // Non Lion get the usual punishment - nothing else seems to work - and break havoc when coming from fullscreen
+//        this->setWindowFlags(Qt::FramelessWindowHint);//  | Qt::WindowSystemMenuHint);
+//    }
+
+//    this->setWindowFlags(Qt::FramelessWindowHint);//  | Qt::WindowSystemMenuHint);
     [pool release];
 //    installEventFilter(this);
 }
@@ -113,6 +128,23 @@ LesserWindow::LesserWindow(QWidget *parent)
 //    delete d;
 //}
 
+void LesserWindow::startMovable()
+{
+    qDebug() << "Start movable";
+    NSView *nsview = (NSView *) this->winId();
+    NSWindow *nswindow = [nsview window];
+    [nswindow setMovableByWindowBackground: YES];
+}
+
+void LesserWindow::stopMovable()
+{
+    qDebug() << "Stop movable";
+    NSView *nsview = (NSView *) this->winId();
+    NSWindow *nswindow = [nsview window];
+    [nswindow setMovableByWindowBackground: NO];
+}
+
+
 // The reason for this is that QT is broken when it comes to maximize and/or n/ne/w resizing
 int LesserWindow::x() const
 {
@@ -121,13 +153,29 @@ int LesserWindow::x() const
     return [nswindow frame].origin.x;
 }
 
+void LesserWindow::move(int x, int y)
+{
+    NSView *nsview = (NSView *) this->winId();
+//    int delta = [[NSScreen mainScreen] frame].size.height - [[NSScreen mainScreen] visibleFrame].size.height;
+//    if(delta > 0 && delta > y)
+//        y = delta;
+
+    NSWindow *nswindow = [nsview window];
+    NSPoint newPoint = NSMakePoint (x, [[NSScreen mainScreen] frame].size.height - y);
+
+    qDebug() << "*******";
+    qDebug() << this->x();
+    qDebug() << newPoint.x;
+//    qDebug() << this->y();
+//    qDebug() << newPoint.y;
+
+    [nswindow setFrameTopLeftPoint: newPoint];
+}
+
 int LesserWindow::y() const
 {
-    QDesktopWidget * d = QApplication::desktop();
-    QRect r = d->geometry();
     NSView *nsview = (NSView *) this->winId();
-    NSWindow *nswindow = [nsview window];
-    return (r.height() - [nswindow frame].origin.y - [nswindow frame].size.height);
+    return ([[NSScreen mainScreen] frame].size.height - [[nsview window] frame].origin.y - [[nsview window] frame].size.height);
 }
 
 bool LesserWindow::minimizeOnDoubleClick() const
