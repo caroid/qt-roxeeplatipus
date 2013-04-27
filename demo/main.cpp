@@ -9,6 +9,7 @@
 #include <libroxeeplatipus/mediakeys.h>
 #include <libroxeeplatipus/merguez.h>
 #include <libroxeeplatipus/powermanager.h>
+#include <libroxeeplatipus/QT425.h>
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +21,8 @@ int main(int argc, char *argv[])
     RoxeePlatipus::MediaKeys * d;
     RoxeePlatipus::RemoteMerguez * e;
     RoxeePlatipus::PowerManager * f;
+
+    qDebug() << QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
 
     return app.exec();
 }

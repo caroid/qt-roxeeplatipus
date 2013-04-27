@@ -33,6 +33,7 @@ HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/mediakeys.h \
             $$PWD/include/libroxeeplatipus/basepowermanagement.h \
             $$PWD/include/libroxeeplatipus/powermanager.h \
+    include/libroxeeplatipus/QT425.h
 
 win32{
     INCLUDEPATH += $$PWD/../src/win
