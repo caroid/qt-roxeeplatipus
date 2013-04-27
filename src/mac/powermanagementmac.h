@@ -8,17 +8,17 @@ class PowerManagementMac : public RoxeePlatipus::BasePowerManagement
 {
     Q_OBJECT
 public:
-    explicit PowerManagementMac(QObject *parent = 0);
+    explicit PowerManagementMac(QObject * parent = 0);
     ~PowerManagementMac();
-    uint getState();
-    void setState(uint busy);
+
+    void setState(const uint /* busy */, const QString & /*reason*/ );
 
 signals:
 
 public slots:
 
 private:
-  uint m_busy;
+//  uint m_busy;
   IOPMAssertionID m_assertionID;
   io_connect_t m_connectIO;
 };

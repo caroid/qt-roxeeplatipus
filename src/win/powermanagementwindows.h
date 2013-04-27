@@ -8,8 +8,8 @@ class PowerManagementWindows : public RoxeePlatipus::BasePowerManagement
     Q_OBJECT
 public:
     explicit PowerManagementWindows(QObject *parent = 0);
-    uint getState();
-    void setState(uint busy);
+    ~PowerManagementWindows();
+    void setState(const uint busy, const QString & reason);
 
 signals:
     

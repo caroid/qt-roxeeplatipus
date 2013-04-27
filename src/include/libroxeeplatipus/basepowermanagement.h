@@ -31,26 +31,25 @@ class LIBROXEEPLATIPUSSHARED_EXPORT BasePowerManagement : public QObject
   Q_OBJECT
 
 public:
-  BasePowerManagement(QObject * /*parent*/ = 0)
+  BasePowerManagement(QObject * parent = 0): QObject(parent), m_busy(0)
   {
-      qDebug() << " [M] System/PowerManagement: constructor";
+      qDebug() << " [M] Base System/PowerManagement: constructor";
   }
 
-  ~BasePowerManagement()
+  static const uint NONE = 0;
+  static const uint SYSTEM = 1;
+  static const uint SCREEN = 2;
+
+  uint getState()
   {
-      qDebug() << " [M] System/PowerManagement: destructor";
+      qDebug() << " [M] PowerManagement: query state";
+      return m_busy;
   }
 
-  Q_PROPERTY(uint state READ getState WRITE setState)
-  Q_PROPERTY(uint NONE READ none)
-  Q_PROPERTY(uint SYSTEM READ system)
-  Q_PROPERTY(uint SCREEN READ screen)
+  virtual void setState(const uint /* busy */, const QString & /*reason*/ ){}
 
-  uint getState(){return 0;}
-  void setState(uint /* busy */ ){}
-  uint none()   {return 0;}
-  uint system() {return 1;}
-  uint screen() {return 2;}
+protected:
+  uint m_busy;
 
 };
 

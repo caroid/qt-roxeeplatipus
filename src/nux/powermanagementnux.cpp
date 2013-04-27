@@ -8,9 +8,9 @@
 #include <QDBusPendingReply>
 
 PowerManagementNux::PowerManagementNux(QObject *parent) :
-    BasePowerManagement(parent), m_busy(0)
+    BasePowerManagement(parent)
 {
-    qDebug() << " [M] System/PowerManagement: constructor";
+    qDebug() << " [M/Nux] System/PowerManagement: constructor";
     if(!QDBusConnection::sessionBus().isConnected())
     {
         qDebug("D-Bus: Could not connect to session bus");
@@ -26,15 +26,9 @@ PowerManagementNux::PowerManagementNux(QObject *parent) :
     m_use_gsm = false;
 }
 
-uint PowerManagementNux::getState()
+void PowerManagementNux::setState(uint dobusy, const QString & reason)
 {
-    qDebug() << " [M] System/PowerManagement: query state";
-    return m_busy;
-}
-
-void PowerManagementNux::setState(uint dobusy)
-{
-    qDebug() << " [M] System/PowerManagement: set new state";
+    qDebug() << " [M/Nux] System/PowerManagement: set new state";
     if(m_busy == dobusy){
         return;
     }
@@ -58,6 +52,7 @@ void PowerManagementNux::setState(uint dobusy)
 
     QList<QVariant> args;
     if(dobusy){
+        // XXX reason
         args << "Roxee WebRoxer";
         if (m_use_gsm) args << (uint)0;
         args << "User is watching a video";
@@ -70,6 +65,9 @@ void PowerManagementNux::setState(uint dobusy)
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pcall, this);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)),
             this, SLOT(OnAsyncReply(QDBusPendingCallWatcher*)));
+
+    // XXX untested
+    m_busy = dobusy;
 }
 
 
@@ -106,7 +104,8 @@ void PowerManagementNux::OnAsyncReply(QDBusPendingCallWatcher *call)
                 m_use_gsm = true;
                 m_state = idle;
                 if (m_intended_state == busy)
-                    this->setState(1);
+                    // XXX
+                    this->setState(1, QString("Busy"));
             }
             else
             {
@@ -119,7 +118,8 @@ void PowerManagementNux::OnAsyncReply(QDBusPendingCallWatcher *call)
             m_cookie = reply.value();
             qDebug("D-Bus: PowerManagementInhibitor: Request successful, cookie is %d", m_cookie);
             if (m_intended_state == idle)
-                this->setState(0);
+                // XXX
+                this->setState(0, QString("Iddle"));
         }
     }
     else
