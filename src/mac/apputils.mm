@@ -1,7 +1,9 @@
 #include "libroxeeplatipus/apputils.h"
+#include "mac/cocoainit.h"
 #include <AppKit/NSDockTile.h>
 #include <AppKit/NSApplication.h>
 #include <AppKit/NSWindow.h>
+#include <AppKit/NSScreen.h>
 #include <Foundation/NSString.h>
 
 #include <qDebug>
@@ -84,6 +86,47 @@ bool AppUtils::fullscrenToggle(QWidget * mainWindow)
         return mainWindow->isFullScreen();
     }
 }
+
+int AppUtils::renderx()
+{
+    return [[NSScreen mainScreen] visibleFrame].origin.x;
+}
+
+int AppUtils::rendery()
+{
+    return [[NSScreen mainScreen] visibleFrame].origin.y;
+}
+
+int AppUtils::renderw()
+{
+    return [[NSScreen mainScreen] visibleFrame].size.width;
+}
+
+int AppUtils::renderh()
+{
+    return [[NSScreen mainScreen] visibleFrame].size.height;
+}
+
+int AppUtils::screenx()
+{
+    return [[NSScreen mainScreen] frame].origin.x;
+}
+
+int AppUtils::screeny()
+{
+    return [[NSScreen mainScreen] frame].origin.y;
+}
+
+int AppUtils::screenw()
+{
+    return [[NSScreen mainScreen] frame].size.width;
+}
+
+int AppUtils::screenh()
+{
+    return [[NSScreen mainScreen] frame].size.height;
+}
+
 
 }
 

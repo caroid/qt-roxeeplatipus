@@ -20,7 +20,15 @@ public:
     static bool isFullScreen(QWidget * mainWindow);
     static bool fullscrenToggle(QWidget * mainWindow);
 
-    //    void flipSpace(void * winId, int newSpaceNumber);
+    static int renderx();
+    static int rendery();
+    static int renderw();
+    static int renderh();
+
+    static int screenx();
+    static int screeny();
+    static int screenw();
+    static int screenh();
 };
 
 }
