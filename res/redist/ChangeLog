@@ -1,7 +1,9 @@
-RoxeePlatipus-0.7.0-dev:
+RoxeePlatipus-0.7.0:
     Build system cleanup.
     Working demo.
     QT5 support.
+    Power management now working and reworked.
+    Stuffy stuff.
 
 RoxeePlatipus-0.6.0:
     First release
