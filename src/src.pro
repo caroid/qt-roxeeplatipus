@@ -15,12 +15,13 @@ target.path = $$DESTDIR
 INSTALLS += target
 
 # Copy headers to destination
-system(rm -Rf "$$DESTDIR/../include")
-system(mkdir -p "$$DESTDIR/../")
-system(cp -R "$$PWD/include" "$$DESTDIR/../")
-system(rm -Rf "$$DESTDIR/../share")
+system(rm -Rf "$$DESTDIR/../include/libroxeeplatipus")
+system(mkdir -p "$$DESTDIR/../include")
+system(cp -R "$$PWD/include/libroxeeplatipus" "$$DESTDIR/../include")
+system(rm -Rf "$$DESTDIR/../share/libroxeeplatipus")
 system(mkdir -p "$$DESTDIR/../share/libroxeeplatipus")
 system(cp "$$PWD/../res/redist/*" "$$DESTDIR/../share/libroxeeplatipus")
+
 
 SOURCES +=  $$PWD/root.cpp\
             $$PWD/powermanager.cpp
