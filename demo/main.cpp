@@ -15,14 +15,13 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    RoxeePlatipus::AppUtils * a;
-    RoxeePlatipus::BasePowerManagement * b;
-    RoxeePlatipus::LesserWindow * c;
-    RoxeePlatipus::MediaKeys * d;
-    RoxeePlatipus::RemoteMerguez * e;
-    RoxeePlatipus::PowerManager * f;
-
-    qDebug() << QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+//    RoxeePlatipus::AppUtils * a;
+//    RoxeePlatipus::BasePowerManagement * b;
+//    RoxeePlatipus::LesserWindow * c;
+//    RoxeePlatipus::MediaKeys * d;
+//    RoxeePlatipus::RemoteMerguez * e;
+//    RoxeePlatipus::PowerManager * f;
+//    qDebug() << QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
 
     return app.exec();
 }

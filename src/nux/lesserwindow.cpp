@@ -32,7 +32,7 @@ namespace RoxeePlatipus{
 LesserWindow::LesserWindow(QWidget *parent)
     : QWidget(parent)
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);//  | Qt::WindowSystemMenuHint);
+//    this->setWindowFlags(Qt::FramelessWindowHint);//  | Qt::WindowSystemMenuHint);
 }
 
 // The reason for this is that QT is broken when it comes to maximize and/or n/ne/w resizing
@@ -60,4 +60,21 @@ bool LesserWindow::needsResizer() const
 {
     return true;
 }
+
+void LesserWindow::startMovable()
+{
+
+}
+
+void LesserWindow::stopMovable()
+{
+
+}
+
+void LesserWindow::move(int /*x*/, int /*y*/)
+{
+
+}
+
+
 }

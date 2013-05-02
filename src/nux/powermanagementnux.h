@@ -12,7 +12,7 @@ class PowerManagementNux : public RoxeePlatipus::BasePowerManagement
     Q_OBJECT
 public:
     explicit PowerManagementNux(QObject *parent = 0);
-    ~PowerManagementNux();
+//    ~PowerManagementNux();
     Q_INVOKABLE void setState(const uint busy, const QString & reason);
 
 signals:

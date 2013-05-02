@@ -1,4 +1,6 @@
 #include "libroxeeplatipus/apputils.h"
+#include <QDesktopWidget>
+#include <QApplication>
 
 namespace RoxeePlatipus {
 
@@ -62,21 +64,25 @@ int AppUtils::renderh()
 
 int AppUtils::screenx()
 {
+    return 0;
 //    return [[NSScreen mainScreen] frame].origin.x;
 }
 
 int AppUtils::screeny()
 {
+    return 0;
 //    return [[NSScreen mainScreen] frame].origin.y;
 }
 
 int AppUtils::screenw()
 {
+    return 0;
 //    return [[NSScreen mainScreen] frame].size.width;
 }
 
 int AppUtils::screenh()
 {
+    return 0;
 //    return [[NSScreen mainScreen] frame].size.height;
 }
 

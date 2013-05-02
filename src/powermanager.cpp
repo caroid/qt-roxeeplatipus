@@ -17,7 +17,7 @@ PowerManager::PowerManager(QObject * parent): QObject(parent)
 #elif defined(Q_OS_WIN)
     pm = new PowerManagementWin(this);
 #elif defined(Q_OS_UNIX) && defined(Q_DBUS_EXPORT)
-    pm = return new PowerManagementNux(this);
+    pm = new PowerManagementNux(this);
 #endif
     qDebug() << " [M] PowerManagement: constructor";
 }

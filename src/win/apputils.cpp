@@ -1,4 +1,6 @@
 #include "libroxeeplatipus/apputils.h"
+#include <QDesktopWidget>
+#include <QApplication>
 
 namespace RoxeePlatipus {
 

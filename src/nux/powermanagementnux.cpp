@@ -26,7 +26,7 @@ PowerManagementNux::PowerManagementNux(QObject *parent) :
     m_use_gsm = false;
 }
 
-void PowerManagementNux::setState(uint dobusy, const QString & reason)
+void PowerManagementNux::setState(uint dobusy, const QString &/* reason*/)
 {
     qDebug() << " [M/Nux] System/PowerManagement: set new state";
     if(m_busy == dobusy){
@@ -87,7 +87,7 @@ void PowerManagementNux::OnAsyncReply(QDBusPendingCallWatcher *call)
             m_state = idle;
             qDebug("D-Bus: PowerManagementInhibitor: Request successful");
             if (m_intended_state == busy)
-                this->setState(1);
+                this->setState(1, QString::fromLatin1(""));
         }
     }
     else if (m_state == request_busy)

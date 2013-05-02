@@ -69,7 +69,7 @@ public:
 
 private:
     // prevent construction
-//    QStandardPaths();
+//    QStandardPaths()
 //    ~QStandardPaths();
 };
 #else
