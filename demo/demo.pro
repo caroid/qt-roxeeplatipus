@@ -11,3 +11,9 @@ include($$PWD/../conf/conf.pri)
 INCLUDEPATH += $$PWD
 target.path = $$DESTDIR
 INSTALLS += target
+
+win32{
+    contains(ROXEE_LINK_TYPE, static){
+        DEFINES += LIBROXEEPLATIPUS_USE_STATIC
+    }
+}

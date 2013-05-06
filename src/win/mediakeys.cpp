@@ -8,7 +8,7 @@ public:
 
 namespace RoxeePlatipus{
 
-MediaKeys::MediaKeys(QWidget * win, QObject *parent) :
+MediaKeys::MediaKeys(QWidget * /*win*/, QObject *parent) :
 QObject(parent)
 {
 }

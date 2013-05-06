@@ -3,7 +3,7 @@
 #ifdef Q_OS_MAC
 #include "mac/powermanagementmac.h"
 #elif defined(Q_OS_WIN)
-#include "win/powermanagementwin.h"
+#include "win/powermanagementwindows.h"
 #elif defined(Q_OS_UNIX) && defined(Q_DBUS_EXPORT)
 #include "nux/powermanagementnux.h"
 #endif
@@ -15,7 +15,7 @@ PowerManager::PowerManager(QObject * parent): QObject(parent)
 #ifdef Q_OS_MAC
     pm = new PowerManagementMac(this);
 #elif defined(Q_OS_WIN)
-    pm = new PowerManagementWin(this);
+    pm = new PowerManagementWindows(this);
 #elif defined(Q_OS_UNIX) && defined(Q_DBUS_EXPORT)
     pm = new PowerManagementNux(this);
 #endif

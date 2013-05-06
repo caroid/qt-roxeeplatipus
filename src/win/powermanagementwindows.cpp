@@ -9,7 +9,7 @@ PowerManagementWindows::PowerManagementWindows(QObject *parent) :
     qDebug() << " [M/Win] System/PowerManagement: constructor";
 }
 
-void PowerManagementWindows::setState(const uint busy, const QString & reason)
+void PowerManagementWindows::setState(const uint busy, const QString & /*reason*/)
 {
     qDebug() << " [M/Win] System/PowerManagement: set new state";
     if(m_busy == busy){

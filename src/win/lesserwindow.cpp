@@ -71,7 +71,7 @@ void LesserWindow::stopMovable()
 
 }
 
-void LesserWindow::move(int x, int y)
+void LesserWindow::move(int /*x*/, int /*y*/)
 {
 
 }

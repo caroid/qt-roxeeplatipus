@@ -1,3 +1,6 @@
+RoxeePlatipus-0.7.1:
+    Fixed windows build.
+
 RoxeePlatipus-0.7.0:
     Build system cleanup.
     Working demo.
