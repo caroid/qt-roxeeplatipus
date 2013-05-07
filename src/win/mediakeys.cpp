@@ -13,7 +13,7 @@ QObject(parent)
 {
 }
 
-bool MediaKeys::eventFilter(QObject */*object*/, QEvent */*event*/)
+bool MediaKeys::eventFilter(QObject * /*object*/, QEvent * /*event*/)
 {
     return false;
 }
