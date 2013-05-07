@@ -11,7 +11,7 @@ QObject(parent)
 {
 }
 
-bool RemoteMerguez::eventFilter(QObject */*object*/, QEvent */*event*/)
+bool RemoteMerguez::eventFilter(QObject * /*object*/, QEvent * /*event*/)
 {
     return false;
 }
