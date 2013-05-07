@@ -1,7 +1,7 @@
 TEMPLATE = lib
 QT = core widgets
 
-include($$PWD/../conf/conf.pri)
+include($$PWD/../config/common.pri)
 
 DEFINES += LIBROXEEPLATIPUS_LIBRARY
 
@@ -13,33 +13,6 @@ INCLUDEPATH += $$PWD
 INCLUDEPATH += $$PWD/include
 target.path = $$DESTDIR
 INSTALLS += target
-
-
-defineTest(copyToDestdir) {
-    files = $$1
-    dest = $$2
-
-    for(FILE, files) {
-        DDIR = $$dest
-
-        # Replace slashes in paths with backslashes for Windows
-        win32:FILE ~= s,/,\\,g
-        win32:DDIR ~= s,/,\\,g
-
-        win32{
-            system(mkdir $$quote($$DDIR))
-        }else{
-            system(mkdir -p $$quote($$DDIR))
-        }
-        message(********************************************)
-        message($$QMAKE_COPY $$quote($$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t))
-        message(********************************************)
-
-        QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t)
-    }
-
-    export(QMAKE_POST_LINK)
-}
 
 copyToDestdir($$PWD/include/libroxeeplatipus/*, $$DESTDIR/../include/libroxeeplatipus)
 copyToDestdir($$PWD/../res/redist/*, $$DESTDIR/../share/libroxeeplatipus)
@@ -56,7 +29,7 @@ HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/mediakeys.h \
             $$PWD/include/libroxeeplatipus/basepowermanagement.h \
             $$PWD/include/libroxeeplatipus/powermanager.h \
-    include/libroxeeplatipus/QT425.h
+            $$PWD/include/libroxeeplatipus/QT425.h
 
 win32{
     INCLUDEPATH += $$PWD/../src/win
@@ -68,6 +41,7 @@ win32{
     SOURCES += $$PWD/../src/win/powermanagementwindows.cpp
     SOURCES += $$PWD/../src/win/lesserwindow.cpp
 }
+
 unix:!mac{
     INCLUDEPATH += $$PWD/../src/nux
 

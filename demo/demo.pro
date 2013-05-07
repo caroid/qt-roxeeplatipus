@@ -1,19 +1,16 @@
 TEMPLATE = app
-
-## Basic consumer variables
 QT = core widgets
 
 SOURCES +=  $$PWD/main.cpp
 
-# You don't "need" any "magic" of the following - just link against the produced library if you are doing it your own way
-include($$PWD/../conf/conf.pri)
+include($$PWD/../config/common.pri)
 
 INCLUDEPATH += $$PWD
 target.path = $$DESTDIR
 INSTALLS += target
 
-win32{
-    contains(ROXEE_LINK_TYPE, static){
-        DEFINES += LIBROXEEPLATIPUS_USE_STATIC
-    }
+LIBS += -l$${ROXEE_LINK_NAME}
+
+contains(ROXEE_LINK_TYPE, static){
+    DEFINES += LIBROXEEMEGAUP_USE_STATIC
 }
