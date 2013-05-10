@@ -2,3 +2,5 @@
 buildd/
 *Makefile
 *.pro.user
+*.Release
+*.Debug
