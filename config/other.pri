@@ -22,6 +22,6 @@ ROXEE_EXTERNAL =
 ROXEE_DESTDIR =
 
 # Flags to use in order to link to the third-party (lib only)
-ROXEE_LIBS =
+ROXEE_LIBS = -ldns_sd
 # Special include paths (appended to external deps, if any)  (lib only)
 ROXEE_INC =

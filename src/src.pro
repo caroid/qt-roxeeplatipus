@@ -1,5 +1,5 @@
 TEMPLATE = lib
-QT = core widgets
+QT = core widgets network
 
 include($$PWD/../config/common.pri)
 
@@ -14,12 +14,18 @@ INCLUDEPATH += $$PWD/include
 target.path = $$DESTDIR
 INSTALLS += target
 
-copyToDestdir($$PWD/include/libroxeeplatipus/*, $$DESTDIR/../include/libroxeeplatipus)
+copyToDestdir($$PWD/include/libroxeeplatipus/*.h, $$DESTDIR/../include/libroxeeplatipus)
+copyToDestdir($$PWD/include/libroxeeplatipus/zerohello/*, $$DESTDIR/../include/libroxeeplatipus/zerohello)
 copyToDestdir($$PWD/../res/redist/*, $$DESTDIR/../share/libroxeeplatipus)
 
 
 SOURCES +=  $$PWD/root.cpp\
-            $$PWD/powermanager.cpp
+            $$PWD/powermanager.cpp \
+            $$PWD/zerohello/browser.cpp \
+            $$PWD/zerohello/registrar.cpp \
+            $$PWD/zerohello/resolver.cpp \
+    $$PWD/zerohello/genericzero.cpp
+#            httpserver.cpp
 
 HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/root.h \
@@ -29,7 +35,13 @@ HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/mediakeys.h \
             $$PWD/include/libroxeeplatipus/basepowermanagement.h \
             $$PWD/include/libroxeeplatipus/powermanager.h \
-            $$PWD/include/libroxeeplatipus/QT425.h
+            $$PWD/include/libroxeeplatipus/QT425.h \
+            $$PWD/include/libroxeeplatipus/zerohello/browser.h \
+            $$PWD/include/libroxeeplatipus/zerohello/record.h \
+            $$PWD/include/libroxeeplatipus/zerohello/registrar.h \
+            $$PWD/include/libroxeeplatipus/zerohello/resolver.h \
+            $$PWD/include/libroxeeplatipus/zerohello/genericzero.h
+#            httpserver.h
 
 win32{
     INCLUDEPATH += $$PWD/../src/win

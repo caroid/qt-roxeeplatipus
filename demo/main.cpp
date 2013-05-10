@@ -11,8 +11,12 @@
 #include <libroxeeplatipus/powermanager.h>
 #include <libroxeeplatipus/QT425.h>
 
+#include "zero.h"
+
+
 int main(int argc, char *argv[])
 {
+
     QApplication app(argc, argv);
 
     RoxeePlatipus::Root * root = new RoxeePlatipus::Root();
@@ -29,7 +33,13 @@ int main(int argc, char *argv[])
     qDebug() << root->getLibVersion();
     qDebug() << root->getLibRevision();
 
-//    RoxeePlatipus::AppUtils * a;
+    QWidget * main = new QWidget();
+
+    Zero * z = new Zero();
+
+
+
+    //    RoxeePlatipus::AppUtils * a;
 //    RoxeePlatipus::BasePowerManagement * b;
 //    RoxeePlatipus::LesserWindow * c;
 //    RoxeePlatipus::MediaKeys * d;
