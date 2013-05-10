@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    RoxeePlatipus::Root * root;
+    RoxeePlatipus::Root * root = new RoxeePlatipus::Root();
     qDebug() << root->getName();
     qDebug() << root->getBuildType();
     qDebug() << root->getLinkType();
