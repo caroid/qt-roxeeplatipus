@@ -16,3 +16,10 @@ OSX:
 Older bits of code in there were meant to help positioning windows, proper frameless windows, etc.
 
 Licensed under BSD2.
+
+================
+TODO
+================
+
+Test (specifically powermanagement).
+Cleanup old hacks.

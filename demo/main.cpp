@@ -15,6 +15,20 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    RoxeePlatipus::Root * root;
+    qDebug() << root->getName();
+    qDebug() << root->getBuildType();
+    qDebug() << root->getLinkType();
+    qDebug() << root->getQt();
+    qDebug() << root->getVendor();
+    qDebug() << root->getVersion();
+    qDebug() << root->getRevision();
+    qDebug() << root->getChangeset();
+
+    qDebug() << root->getLibName();
+    qDebug() << root->getLibVersion();
+    qDebug() << root->getLibRevision();
+
 //    RoxeePlatipus::AppUtils * a;
 //    RoxeePlatipus::BasePowerManagement * b;
 //    RoxeePlatipus::LesserWindow * c;
