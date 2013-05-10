@@ -14,7 +14,8 @@ ROXEE_INTERNAL_PATH =
 
 # If you rather want to link against your own, specify ROXEE_EXTERNAL, a directory that must contain include and lib folders with the necessary dependencies
 # Note this will be used BEFORE any other manually specified source
-ROXEE_EXTERNAL =
+# Warning! You need to provide a folder for bonjour with lib and include subfolders
+ROXEE_EXTERNAL = C:\roxeelove\trees\bonjour
 
 # Not specifying either means your third-party are already installed system-wide.
 
@@ -22,6 +23,6 @@ ROXEE_EXTERNAL =
 ROXEE_DESTDIR =
 
 # Flags to use in order to link to the third-party (lib only)
-ROXEE_LIBS = -ldns_sd
+ROXEE_LIBS = -ldnssd
 # Special include paths (appended to external deps, if any)  (lib only)
 ROXEE_INC =

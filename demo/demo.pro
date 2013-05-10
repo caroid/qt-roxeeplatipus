@@ -12,6 +12,12 @@ INSTALLS += target
 
 LIBS += -l$${ROXEE_LINK_NAME}
 
+# Shitty right now
+win32{
+    INCLUDEPATH += C:\roxeelove\trees\bonjour\include
+    LIBS += -LC:\roxeelove\trees\bonjour\lib
+}
+
 contains(ROXEE_LINK_TYPE, static){
     DEFINES += LIBROXEEPLATIPUS_USE_STATIC
 }
