@@ -31,7 +31,7 @@ class LIBROXEEPLATIPUSSHARED_EXPORT Resolver : public GenericZero
   Q_OBJECT
 
 public:
-    Resolver(QObject *parent);
+    Resolver(QObject *parent = 0);
 
     void resolve(const Record &record);
 

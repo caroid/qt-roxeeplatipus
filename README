@@ -26,3 +26,4 @@ TODO
 
 Test (specifically powermanagement).
 Cleanup old hacks.
+Hide entirely zeroconf.

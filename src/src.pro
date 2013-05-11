@@ -24,7 +24,8 @@ SOURCES +=  $$PWD/root.cpp\
             $$PWD/zerohello/browser.cpp \
             $$PWD/zerohello/registrar.cpp \
             $$PWD/zerohello/resolver.cpp \
-            $$PWD/zerohello/genericzero.cpp
+            $$PWD/zerohello/genericzero.cpp \
+            $$PWD/zerohello/zerohello.cpp
 #            httpserver.cpp
 
 HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
@@ -40,7 +41,8 @@ HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/zerohello/record.h \
             $$PWD/include/libroxeeplatipus/zerohello/registrar.h \
             $$PWD/include/libroxeeplatipus/zerohello/resolver.h \
-            $$PWD/include/libroxeeplatipus/zerohello/genericzero.h
+            $$PWD/include/libroxeeplatipus/zerohello/genericzero.h \
+            $$PWD/include/libroxeeplatipus/zerohello/zerohello.h
 #            httpserver.h
 
 win32{

@@ -15,6 +15,7 @@
 #include "libroxeeplatipus/libroxeeplatipus_global.h"
 
 #include <QObject>
+//#include <QVariant>
 
 namespace RoxeePlatipus {
 
@@ -29,7 +30,8 @@ public:
     {
     }
 
-    explicit Record(const char *name, const char *regType, const char *domain) {
+    explicit Record(const char *name, const char *regType, const char *domain)
+    {
         serviceName = QString::fromUtf8(name);
         registeredType = QString::fromUtf8(regType);
         replyDomain = QString::fromUtf8(domain);
@@ -44,10 +46,18 @@ public:
                 && registeredType == other.registeredType
                 && replyDomain == other.replyDomain;
     }
+
+//    operator QVariant() const
+//    {
+//        return QVariant::fromValue(*this);
+//    }
 };
 
 }
 }
+
+
+//Q_DECLARE_METATYPE(RoxeePlatipus::ZeroHello::Record)
 
 
 #endif // ROXEEPLATIPUS_ZEROHELLO_RECORD_H

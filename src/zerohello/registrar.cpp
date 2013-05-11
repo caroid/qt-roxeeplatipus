@@ -15,7 +15,7 @@ namespace RoxeePlatipus{
 namespace ZeroHello{
 
 Registrar::Registrar(QObject *parent)
-  : GenericZero(parent)
+    : GenericZero(parent)
 {
 }
 
