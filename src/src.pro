@@ -21,6 +21,7 @@ copyToDestdir($$PWD/../res/redist/*, $$DESTDIR/../share/libroxeeplatipus)
 
 SOURCES +=  $$PWD/root.cpp\
             $$PWD/powermanager.cpp \
+            $$PWD/notifier.cpp \
             $$PWD/zerohello/browser.cpp \
             $$PWD/zerohello/registrar.cpp \
             $$PWD/zerohello/resolver.cpp \
@@ -34,7 +35,9 @@ HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/merguez.h \
             $$PWD/include/libroxeeplatipus/mediakeys.h \
             $$PWD/include/libroxeeplatipus/basepowermanagement.h \
+            $$PWD/include/libroxeeplatipus/basenotifier.h \
             $$PWD/include/libroxeeplatipus/powermanager.h \
+            $$PWD/include/libroxeeplatipus/notifier.h \
             $$PWD/include/libroxeeplatipus/QT425.h \
             $$PWD/include/libroxeeplatipus/zerohello/browser.h \
             $$PWD/include/libroxeeplatipus/zerohello/record.h \
@@ -44,30 +47,32 @@ HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/zerohello/zerohello.h
 
 win32{
-    INCLUDEPATH += $$PWD/../src/win
+#    INCLUDEPATH += $$PWD/win
 
-    SOURCES += $$PWD/../src/win/apputils.cpp
-    SOURCES += $$PWD/../src/win/merguez.cpp
-    SOURCES += $$PWD/../src/win/mediakeys.cpp
-    HEADERS += $$PWD/../src/win/powermanagementwindows.h
-    SOURCES += $$PWD/../src/win/powermanagementwindows.cpp
-    SOURCES += $$PWD/../src/win/lesserwindow.cpp
+    SOURCES += $$PWD/win/apputils.cpp
+    SOURCES += $$PWD/win/merguez.cpp
+    SOURCES += $$PWD/win/mediakeys.cpp
+    HEADERS += $$PWD/win/powermanagementwindows.h
+    SOURCES += $$PWD/win/powermanagementwindows.cpp
+    SOURCES += $$PWD/win/lesserwindow.cpp
 }
 
 unix:!mac{
-    INCLUDEPATH += $$PWD/../src/nux
+#    INCLUDEPATH += $$PWD/nux
 
     QT += dbus
     # The linux/dbus code is largely copied from  qBitTorrent Bittorrent Client,
     # Copyright (C) 2011  Vladimir Golovnev <glassez@yandex.ru>
     # Released under the GPL with an exception clause for OpenSSL
-    HEADERS += $$PWD/../src/nux/powermanagementnux.h
-    SOURCES += $$PWD/../src/nux/powermanagementnux.cpp
+    HEADERS += $$PWD/nux/powermanagementnux.h
+    SOURCES += $$PWD/nux/powermanagementnux.cpp
+    HEADERS += $$PWD/nux/specialnotifier.h
+    SOURCES += $$PWD/nux/specialnotifier.cpp
 
-    SOURCES += $$PWD/../src/nux/apputils.cpp
-    SOURCES += $$PWD/../src/nux/merguez.cpp
-    SOURCES += $$PWD/../src/nux/mediakeys.cpp
-    SOURCES += $$PWD/../src/nux/lesserwindow.cpp
+    SOURCES += $$PWD/nux/apputils.cpp
+    SOURCES += $$PWD/nux/merguez.cpp
+    SOURCES += $$PWD/nux/mediakeys.cpp
+    SOURCES += $$PWD/nux/lesserwindow.cpp
 }
 mac{
     # Use Lion Fullscreen if available
@@ -99,18 +104,22 @@ mac{
     ## Main lib
     ####################
 
-    INCLUDEPATH += $$PWD/../src/mac
+#    INCLUDEPATH += $$PWD/mac
+
+    HEADERS += $$PWD/mac/powermanagementmac.h
+    HEADERS += $$PWD/mac/specialnotifier.h
 
     # Cocoa helper
-    HEADERS +=              $$PWD/../src/mac/cocoainit.h
-    OBJECTIVE_SOURCES +=    $$PWD/../src/mac/cocoainit.mm
+    HEADERS +=              $$PWD/mac/cocoainit.h
+    OBJECTIVE_SOURCES +=    $$PWD/mac/cocoainit.mm
 
     # Implementation
-    OBJECTIVE_SOURCES +=    $$PWD/../src/mac/apputils.mm
-    OBJECTIVE_SOURCES +=    $$PWD/../src/mac/merguez.mm
-    OBJECTIVE_SOURCES +=    $$PWD/../src/mac/mediakeys.mm
-    OBJECTIVE_SOURCES +=    $$PWD/../src/mac/lesserwindow.mm
+    OBJECTIVE_SOURCES +=    $$PWD/mac/apputils.mm
+    OBJECTIVE_SOURCES +=    $$PWD/mac/merguez.mm
+    OBJECTIVE_SOURCES +=    $$PWD/mac/mediakeys.mm
+    OBJECTIVE_SOURCES +=    $$PWD/mac/lesserwindow.mm
 
-    HEADERS += $$PWD/../src/mac/powermanagementmac.h
-    SOURCES += $$PWD/../src/mac/powermanagementmac.cpp
+    SOURCES += $$PWD/mac/powermanagementmac.cpp
+
+    OBJECTIVE_SOURCES += $$PWD/../src/mac/specialnotifier.mm
 }

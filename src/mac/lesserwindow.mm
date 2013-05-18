@@ -18,7 +18,7 @@
  */
 
 #include "libroxeeplatipus/lesserwindow.h"
-#include <QDebug>
+//#include <QDebug>
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QRect>
@@ -130,7 +130,7 @@ LesserWindow::LesserWindow(QWidget *parent)
 
 void LesserWindow::startMovable()
 {
-    qDebug() << "Start movable";
+//    qDebug() << "Start movable";
     NSView *nsview = (NSView *) this->winId();
     NSWindow *nswindow = [nsview window];
     [nswindow setMovableByWindowBackground: YES];
@@ -138,7 +138,7 @@ void LesserWindow::startMovable()
 
 void LesserWindow::stopMovable()
 {
-    qDebug() << "Stop movable";
+//    qDebug() << "Stop movable";
     NSView *nsview = (NSView *) this->winId();
     NSWindow *nswindow = [nsview window];
     [nswindow setMovableByWindowBackground: NO];
@@ -163,9 +163,9 @@ void LesserWindow::move(int x, int y)
     NSWindow *nswindow = [nsview window];
     NSPoint newPoint = NSMakePoint (x, [[NSScreen mainScreen] frame].size.height - y);
 
-    qDebug() << "*******";
-    qDebug() << this->x();
-    qDebug() << newPoint.x;
+//    qDebug() << "*******";
+//    qDebug() << this->x();
+//    qDebug() << newPoint.x;
 //    qDebug() << this->y();
 //    qDebug() << newPoint.y;
 

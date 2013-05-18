@@ -2,6 +2,8 @@
 #include <libroxeeplatipus/zerohello/browser.h>
 #include <libroxeeplatipus/zerohello/registrar.h>
 #include <QTime>
+#include <QSystemTrayIcon>
+#include <libroxeeplatipus/notifier.h>
 
 using namespace RoxeePlatipus::ZeroHello;
 Zero::Zero(QObject *parent) :
@@ -39,6 +41,13 @@ Zero::Zero(QObject *parent) :
 
 void Zero::newAnnounceSlot(const QList<Record> &list)
 {
+    QSystemTrayIcon * t = new QSystemTrayIcon();
+    t->show();
+//    RoxeePlatipus::Notificator * n = new RoxeePlatipus::Notificator("program name", t);
+//    n->notify(RoxeePlatipus::Notificator::Information, "title something", "text something");
+    RoxeePlatipus::Notifier * n = new RoxeePlatipus::Notifier(this, t);
+    n->notify("MyApp", "MyTitle", "MyText", QIcon(), true);
+
     // Get signaled when we discover new stuff
     qDebug() << "Hohoho, there is somebody in there! Vous voulez du chocolat?";
     foreach (RoxeePlatipus::ZeroHello::Record record, list) {

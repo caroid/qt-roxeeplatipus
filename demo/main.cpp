@@ -33,10 +33,10 @@ int main(int argc, char *argv[])
     qDebug() << root->getLibVersion();
     qDebug() << root->getLibRevision();
 
-    QWidget * main = new QWidget();
+    QWidget * w = new QWidget();
+    w->show();
 
-    Zero * z = new Zero();
-
+    new Zero();
 
 
     //    RoxeePlatipus::AppUtils * a;

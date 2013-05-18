@@ -9,45 +9,31 @@
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef ROXEEPLATIPUS_ZEROHELLO_ZERO_H
-#define ROXEEPLATIPUS_ZEROHELLO_ZERO_H
+#ifndef ROXEEPLATIPUS_BASENOTIFIER_H
+#define ROXEEPLATIPUS_BASENOTIFIER_H
 
 #include "libroxeeplatipus/libroxeeplatipus_global.h"
-
 #include <QObject>
-#include <QVariant>
-#include <QVariantList>
-#include <QStringList>
-#include <QtNetwork/QHostInfo>
-#include "libroxeeplatipus/zerohello/record.h"
+#include <QIcon>
 
 namespace RoxeePlatipus {
 
-namespace ZeroHello {
-
-class ZeroHello : public QObject
+class LIBROXEEPLATIPUSSHARED_EXPORT BaseNotifier : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
+
 public:
-    explicit ZeroHello(QObject * parent = 0);
-    Q_INVOKABLE void registerService(const QString &name, const QString &regType, int port, const QString &domain);
-    Q_INVOKABLE void resolve(const QString &name, const QString &regType, const QString &domain);
-    Q_INVOKABLE void browse(const QString & serviceType);
+  BaseNotifier(QObject * parent = 0): QObject(parent)
+  {
+  }
 
-signals:
-    void registered(const QString &name, const QString &regType, const QString &domain);
-    void resolved(QStringList list);
-    void discovered(QStringList list);
-
-private slots:
-    void resolveCompleteSlot(const QHostInfo & qhi,int port);
-    void registeredSlot(const Record & record);
-    void newAnnounceSlot(const QList<Record> list);
+  virtual bool notify(const QString &/*appName*/, const QString &/*title*/, const QString &/*text*/, const QIcon & /*icon*/ = QIcon())
+  {
+      return false;
+  }
 
 };
 
 }
-}
 
-
-#endif // ROXEEPLATIPUS_ZEROHELLO_ZERO_H
+#endif // ROXEEPLATIPUS_BASENOTIFIER_H
