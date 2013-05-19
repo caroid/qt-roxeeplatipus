@@ -4,7 +4,7 @@ RoxeePlatipus
 
 This library is meant to provide functionalities and fixes that QT doesn't.
 As such it contains chunks of platform dependent code.
-If something can be done using only QT APIs, then it shouldn't be here.
+If something can be done using merely QT APIs without real value, then it shouldn't be here.
 
 Currently, here is what it provides:
 OSX:
@@ -12,13 +12,15 @@ OSX:
 - apple remote support
 - Lion fullscreen (fallback on regular if not available)
 - some QT4/QT5 migration quirks
-- zeroconf helpers
+- zeroconf support
+- cross-platform notifier
+- power management support
 
 Older bits of code in there were meant to help positioning windows, proper frameless windows, etc.
 
 ZeroConf stuff largely stolen from http://doc.qt.digia.com/qq/qq23-bonjour.html
 Third party dependencies (MediaKeys and Remote code) check the third-party folder
-Notificator inspired by BitCoin repository.
+Linux notificator sourced form BitCoin repository.
 
 Licensed under BSD2.
 

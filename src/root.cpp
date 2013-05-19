@@ -43,14 +43,6 @@ const QString Root::getLinkType(){
     return PROJECT_LINKTYPE;
 }
 
-//const QString Root::getHost(){
-//    return PROJECT_HOST;
-//}
-
-//const QString Root::getCompiler(){
-//    return PROJECT_COMPILER;
-//}
-
 const QString Root::getQt(){
     return QT_VERSION_STR;
 }

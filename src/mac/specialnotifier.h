@@ -19,10 +19,11 @@ class SpecialNotifier : public RoxeePlatipus::BaseNotifier
 public:
     explicit SpecialNotifier(QObject * parent = 0);
 
-    bool notify(const QString &appName, const QString &title, const QString &text, const QIcon & icon = QIcon());
+    bool notify(const QString &appName, const QString &title, const QString &subtitle, const QString &text, const QIcon & icon = QIcon(), int time = 10000);
+    bool canNotify();
 
 private:
-    void notifyCenter(const QString &title, const QString &text);
+    void notifyCenter(const QString &title, const QString &subtitle, const QString &text);
     void notifyGrowl(const QString & growlApp, const QString &appName, const QString &title, const QString &text, const QIcon &icon);
     void sendAppleScript(const QString &script);
 };

@@ -11,6 +11,8 @@
 
 #include "libroxeeplatipus/notifier.h"
 #include <QMessageBox>
+#include <QStyle>
+#include <QApplication>
 
 #ifdef Q_OS_MAC
 #include "mac/specialnotifier.h"
@@ -36,19 +38,52 @@ Notifier::Notifier(QObject * parent, QSystemTrayIcon * tray):
     notifier = new SpecialNotifier(this);
 }
 
-void Notifier::notify(const QString & appName, const QString & title, const QString & text, const QIcon & icon, bool critical)
+bool Notifier::canNotify()
 {
-    bool result = notifier->notify(appName, title, text, icon);
+    return notifier->canNotify() || QSystemTrayIcon::supportsMessages();
+}
+
+void Notifier::notify(
+        const QString & appName,
+        const QString & title,
+        const QString & subtitle,
+        const QString & text,
+        const QPixmap & icon,
+        int severity,
+        int time)
+{
+    QIcon iconic;
+    if(!icon.isNull()){
+        iconic = QIcon(icon);
+    }else{
+        QStyle::StandardPixmap sicon = QStyle::SP_MessageBoxQuestion;
+        switch(severity)
+        {
+        case QSystemTrayIcon::Information:
+                sicon = QStyle::SP_MessageBoxInformation;
+            break;
+        case QSystemTrayIcon::Warning:
+            sicon = QStyle::SP_MessageBoxWarning;
+            break;
+        case QSystemTrayIcon::Critical:
+            sicon = QStyle::SP_MessageBoxCritical;
+            break;
+        default:
+            break;
+        }
+        iconic = QApplication::style()->standardIcon(sicon);
+    }
+    bool result = notifier->notify(appName, title, subtitle, text, iconic, time);
     if(result)
         return;
 
     if(trayicon && trayicon->supportsMessages())
     {
-        trayicon->showMessage(title, text, QSystemTrayIcon::MessageIcon(QSystemTrayIcon::NoIcon));
+        trayicon->showMessage(title, text, QSystemTrayIcon::MessageIcon(severity));
         return;
     }
 
-    if(critical){
+    if(severity == this->CRITICAL()){
         QMessageBox::critical(0, title, text, QMessageBox::Ok, QMessageBox::Ok);
     }
 }

@@ -1,3 +1,7 @@
+RoxeePlatipus-1.0.0-dev:
+    ZeroConf support.
+    Notifier support.
+
 RoxeePlatipus-0.7.1:
     Fixed windows build.
 

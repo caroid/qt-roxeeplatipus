@@ -27,7 +27,26 @@ class LIBROXEEPLATIPUSSHARED_EXPORT Notifier : public QObject
 public:
     explicit Notifier(QObject * parent = 0, QSystemTrayIcon * tray = 0);
 
-    Q_INVOKABLE void notify(const QString & appName, const QString & title, const QString & text, const QIcon & icon = QIcon(), bool critical = false);
+    Q_PROPERTY(int APP READ APP)
+    static int APP(){return QSystemTrayIcon::NoIcon;}
+    Q_PROPERTY(int INFO READ INFO)
+    static int INFO(){return QSystemTrayIcon::Information;}
+    Q_PROPERTY(int WARNING READ WARNING)
+    static int WARNING(){return QSystemTrayIcon::Warning;}
+    Q_PROPERTY(int CRITICAL READ CRITICAL)
+    static int CRITICAL(){return QSystemTrayIcon::Critical;}
+
+    Q_INVOKABLE void notify(
+            const QString & appName,
+            const QString & title,
+            const QString & subtitle,
+            const QString & text,
+            const QPixmap & icon = QPixmap(),
+            int severity = QSystemTrayIcon::NoIcon,
+            int time = 10000
+            );
+
+    Q_INVOKABLE bool canNotify();
 
 private:
     BaseNotifier * notifier;

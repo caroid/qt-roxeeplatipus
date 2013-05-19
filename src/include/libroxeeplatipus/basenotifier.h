@@ -27,7 +27,12 @@ public:
   {
   }
 
-  virtual bool notify(const QString &/*appName*/, const QString &/*title*/, const QString &/*text*/, const QIcon & /*icon*/ = QIcon())
+  virtual bool notify(const QString &/*appName*/, const QString &/*title*/, const QString &/*subtitle*/, const QString &/*text*/, const QIcon & /*icon*/ = QIcon(), int /*time*/ = 10000)
+  {
+      return false;
+  }
+
+  virtual bool canNotify()
   {
       return false;
   }

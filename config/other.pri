@@ -9,7 +9,7 @@ ROXEE_LINK_TYPE = dynamic
 
 # You can choose to link against the third-party provided libraries.
 # If so, this should be not null and point to a specific version and subpath
-ROXEE_INTERNAL_VERSION =
+ROXEE_INTERNAL_VERSION = default
 ROXEE_INTERNAL_PATH =
 
 # If you rather want to link against your own, specify ROXEE_EXTERNAL, a directory that must contain include and lib folders with the necessary dependencies

@@ -1,4 +1,8 @@
 /**
+ * The linux part of the notifier is largely copied from BitCoin repository. See: https://github.com/bitcoin/bitcoin/blob/master/COPYING
+ *
+ * Modified by WebItUp.
+ *
  * Copyright (c) 2012, WebItUp <contact@webitup.fr>
  * All rights reserved.
  *
@@ -20,7 +24,7 @@
 #include <QTemporaryFile>
 #include <QImageWriter>
 
-#include "nux/notifier.h"
+#include "nux/specialnotifier.h"
 
 #include <QtDBus>
 #include <stdint.h>
@@ -120,7 +124,16 @@ SpecialNotifier::~SpecialNotifier()
     delete interface;
 }
 
-bool SpecialNotifier::notify(const QString &appName, const QString &title, const QString &text, const QIcon & icon)
+bool SpecialNotifier::canNotify()
+{
+    if(!interface->isValid())
+    {
+        return false;
+    }
+    return true;
+}
+
+bool SpecialNotifier::notify(const QString &appName, const QString &title, const QString &subtitle, const QString &text, const QIcon & icon, int tim)
 {
     if(!interface->isValid())
     {
@@ -157,7 +170,7 @@ bool SpecialNotifier::notify(const QString &appName, const QString &title, const
     args.append(hints);
 
     // Timeout (in msec)
-    args.append(10000);
+    args.append(time);
 
     // "Fire and forget"
     interface->callWithArgumentList(QDBus::NoBlock, "Notify", args);

@@ -26,7 +26,8 @@ public:
     {
     }
 
-    bool notify(const QString &appName, const QString &title, const QString &text, const QIcon & icon = QIcon());
+    bool notify(const QString &appName, const QString &title, const QString &subtitle, const QString &text, const QIcon & icon = QIcon(), int time = 10000);
+    bool canNotify();
 
 private:
     QDBusInterface *interface;

@@ -20,12 +20,12 @@ SpecialNotifier::SpecialNotifier(QObject * parent): BaseNotifier(parent)
 {
 }
 
-bool SpecialNotifier::notify(const QString &appName, const QString &title, const QString &text, const QIcon &icon)
+bool SpecialNotifier::notify(const QString &appName, const QString &title, const QString &subtitle, const QString &text, const QIcon &icon, int /*time*/)
 {
     // We don't yet link against 10.8 SDK so can't use this API directly yet.
     id userNotificationCenterClass = NSClassFromString(@"NSUserNotificationCenter");
     if (userNotificationCenterClass != nil) {
-        this->notifyCenter(title, text);
+        this->notifyCenter(title, subtitle, text);
         return true;
     }
 
@@ -39,6 +39,29 @@ bool SpecialNotifier::notify(const QString &appName, const QString &title, const
                 this->notifyGrowl("Growl", appName, title, text, icon);
             else
                 this->notifyGrowl("GrowlHelperApp", appName, title, text, icon);
+            CFRelease(cfurl);
+            CFRelease(bundle);
+            return true;
+        }
+        CFRelease(cfurl);
+        CFRelease(bundle);
+    }
+    return false;
+}
+
+bool SpecialNotifier::canNotify()
+{
+    id userNotificationCenterClass = NSClassFromString(@"NSUserNotificationCenter");
+    if (userNotificationCenterClass != nil)
+        return true;
+
+    CFURLRef cfurl;
+    OSStatus status = LSGetApplicationForInfo(kLSUnknownType, kLSUnknownCreator, CFSTR("growlTicket"), kLSRolesAll, 0, &cfurl);
+    if (status != kLSApplicationNotFoundErr) {
+        CFBundleRef bundle = CFBundleCreate(0, cfurl);
+        if (CFStringCompare(CFBundleGetIdentifier(bundle), CFSTR("com.Growl.GrowlHelperApp"), kCFCompareCaseInsensitive | kCFCompareBackwards) == kCFCompareEqualTo) {
+            CFRelease(cfurl);
+            CFRelease(bundle);
             return true;
         }
         CFRelease(cfurl);
@@ -59,12 +82,16 @@ void SpecialNotifier::sendAppleScript(const QString &script) {
     [scriptApple release];
 }
 
-void SpecialNotifier::notifyCenter(const QString &title, const QString &text)
+void SpecialNotifier::notifyCenter(const QString &title, const QString &subtitle, const QString &text)
 {
     id userNotificationCenterClass = NSClassFromString(@"NSUserNotificationCenter");
     QByteArray utf8 = title.toUtf8();
     char* cString = (char *)utf8.constData();
     NSString *titleMac = [[NSString alloc] initWithUTF8String:cString];
+
+    utf8 = subtitle.toUtf8();
+    cString = (char *)utf8.constData();
+    NSString *subtitleMac = [[NSString alloc] initWithUTF8String:cString];
 
     utf8 = text.toUtf8();
     cString = (char *)utf8.constData();
@@ -74,7 +101,7 @@ void SpecialNotifier::notifyCenter(const QString &title, const QString &text)
     id userNotification = [[userNotificationClass alloc] init];
 
     [userNotification setValue:titleMac forKey:@"title"];
-//        [userNotification setValue:titleMac forKey:@"subtitle"];
+    [userNotification setValue:subtitleMac forKey:@"subtitle"];
     [userNotification setValue:textMac forKey:@"informativeText"];
 
     [[userNotificationCenterClass performSelector:@selector(defaultUserNotificationCenter)] performSelector:@selector(deliverNotification:) withObject:userNotification];
