@@ -46,7 +46,7 @@ void Zero::newAnnounceSlot(const QList<Record> &list)
 //    RoxeePlatipus::Notificator * n = new RoxeePlatipus::Notificator("program name", t);
 //    n->notify(RoxeePlatipus::Notificator::Information, "title something", "text something");
     RoxeePlatipus::Notifier * n = new RoxeePlatipus::Notifier(this, t);
-    n->notify("MyApp", "MyTitle", "MyText", QIcon(), true);
+    n->notify("MyApp", "MyTitle", "MySubTitle", "MyText", QPixmap(), n->APP(), 5000);
 
     // Get signaled when we discover new stuff
     qDebug() << "Hohoho, there is somebody in there! Vous voulez du chocolat?";

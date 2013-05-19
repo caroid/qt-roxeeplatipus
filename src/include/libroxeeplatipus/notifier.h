@@ -42,8 +42,8 @@ public:
             const QString & subtitle,
             const QString & text,
             const QPixmap & icon = QPixmap(),
-            int severity = QSystemTrayIcon::NoIcon,
-            int time = 10000
+            const int & severity = QSystemTrayIcon::NoIcon,
+            const int & time = 10000
             );
 
     Q_INVOKABLE bool canNotify();

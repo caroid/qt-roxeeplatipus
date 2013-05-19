@@ -49,30 +49,30 @@ void Notifier::notify(
         const QString & subtitle,
         const QString & text,
         const QPixmap & icon,
-        int severity,
-        int time)
+        const int & severity,
+        const int & time)
 {
     QIcon iconic;
     if(!icon.isNull()){
         iconic = QIcon(icon);
     }else{
-        QStyle::StandardPixmap sicon = QStyle::SP_MessageBoxQuestion;
-        switch(severity)
+        switch((QSystemTrayIcon::MessageIcon) severity)
         {
         case QSystemTrayIcon::Information:
-                sicon = QStyle::SP_MessageBoxInformation;
+            iconic = QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation);
             break;
         case QSystemTrayIcon::Warning:
-            sicon = QStyle::SP_MessageBoxWarning;
+            iconic = QApplication::style()->standardIcon(QStyle::SP_MessageBoxWarning);
             break;
         case QSystemTrayIcon::Critical:
-            sicon = QStyle::SP_MessageBoxCritical;
+            iconic = QApplication::style()->standardIcon(QStyle::SP_MessageBoxCritical);
             break;
         default:
+            iconic = QIcon();
             break;
         }
-        iconic = QApplication::style()->standardIcon(sicon);
     }
+
     bool result = notifier->notify(appName, title, subtitle, text, iconic, time);
     if(result)
         return;

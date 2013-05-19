@@ -13,6 +13,8 @@
 
 #include <Cocoa/Cocoa.h>
 #include <QPixmap>
+#include <QDir>
+#include <QCoreApplication>
 #include <QTemporaryFile>
 #include <QImageWriter>
 
@@ -133,6 +135,20 @@ void SpecialNotifier::notifyGrowl(const QString & growlApp, const QString &appNa
         QImageWriter writer(&notificationIconFile, "PNG");
         if (writer.write(notificationIconPixmap.toImage()))
             notificationIcon = QString(" image from location \"file://%1\"").arg(notificationIconFile.fileName());
+    }else{
+        // XXX Hackish way to get the bundle icon
+        QDir iconPath = QCoreApplication::applicationDirPath();
+        iconPath.cd("..");
+        iconPath.cd("Resources");
+        NSString * hack = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIconFile"];
+        NSRange range;
+        range.location = 0;
+        range.length = [hack length];
+        unichar *chars = new unichar[range.location];
+        [hack getCharacters:chars range:range];
+        QString result = QString::fromUtf16(chars, range.length);
+        delete  chars;
+        notificationIcon = QString(" image from location \"file://%1\"").arg(iconPath.filePath(result + ".icns"));
     }
 
     QString quotedTitle(title), quotedText(text);
