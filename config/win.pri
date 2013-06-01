@@ -10,12 +10,12 @@ ROXEE_LINK_TYPE = static
 # You can choose to link against the third-party provided libraries.
 # If so, this should be not null and point to a specific version and subpath
 ROXEE_INTERNAL_VERSION = default
-ROXEE_INTERNAL_PATH =
+ROXEE_INTERNAL_PATH = bonjour-win
 
 # If you rather want to link against your own, specify ROXEE_EXTERNAL, a directory that must contain include and lib folders with the necessary dependencies
 # Note this will be used BEFORE any other manually specified source
 # Warning! You need to provide a folder for bonjour with lib and include subfolders
-ROXEE_EXTERNAL = C:\roxeelove\trees\bonjour
+ROXEE_EXTERNAL =
 
 # Not specifying either means your third-party are already installed system-wide.
 
