@@ -55,6 +55,9 @@ win32{
     HEADERS += $$PWD/win/powermanagementwindows.h
     SOURCES += $$PWD/win/powermanagementwindows.cpp
     SOURCES += $$PWD/win/lesserwindow.cpp
+
+# XXX because zero does not abstract bonjour correctly... and this is really shitty
+    copyToDestdir($$PWD/../third-party/bonjour-win/*.h, $$DESTDIR/../include/libroxeeplatipus)
 }
 
 unix:!mac{
