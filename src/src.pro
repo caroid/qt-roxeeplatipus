@@ -57,7 +57,7 @@ win32{
     SOURCES += $$PWD/win/lesserwindow.cpp
 
 # XXX because zero does not abstract bonjour correctly... and this is really shitty
-    copyToDestdir($$PWD/../third-party/bonjour-win/*.h, $$DESTDIR/../include/libroxeeplatipus)
+    copyToDestdir($$PWD/../third-party/bonjour-win/include/*.h, $$DESTDIR/../include/libroxeeplatipus)
 }
 
 unix:!mac{
