@@ -25,7 +25,7 @@ namespace RoxeePlatipus {
 
 namespace ZeroHello {
 
-class ZeroHello : public QObject
+class LIBROXEEPLATIPUSSHARED_EXPORT ZeroHello : public QObject
 {
     Q_OBJECT
 public:
