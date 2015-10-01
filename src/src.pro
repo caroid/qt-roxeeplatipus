@@ -38,7 +38,6 @@ HEADERS +=  $$PWD/include/libroxeeplatipus/libroxeeplatipus_global.h \
             $$PWD/include/libroxeeplatipus/basenotifier.h \
             $$PWD/include/libroxeeplatipus/powermanager.h \
             $$PWD/include/libroxeeplatipus/notifier.h \
-            $$PWD/include/libroxeeplatipus/QT425.h \
             $$PWD/include/libroxeeplatipus/zerohello/browser.h \
             $$PWD/include/libroxeeplatipus/zerohello/record.h \
             $$PWD/include/libroxeeplatipus/zerohello/registrar.h \

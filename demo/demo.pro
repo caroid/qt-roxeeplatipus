@@ -1,8 +1,7 @@
 TEMPLATE = app
 QT = core widgets network
 
-SOURCES +=  $$PWD/main.cpp \
-    zero.cpp
+SOURCES +=  $$PWD/main.cpp
 
 include($$PWD/../config/common.pri)
 
@@ -22,5 +21,6 @@ contains(ROXEE_LINK_TYPE, static){
     DEFINES += LIBROXEEPLATIPUS_USE_STATIC
 }
 
-HEADERS += \
-    zero.h
+HEADERS += zero.h
+
+SOURCES += zero.cpp

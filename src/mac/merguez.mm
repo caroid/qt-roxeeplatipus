@@ -34,9 +34,10 @@
 - (void) sendRemoteButtonEvent: (RemoteControlEventIdentifier) event
                    pressedDown: (BOOL) pressedDown
                    remoteControl: (RemoteControl*) remoteControl
- {
-     memere->hello(event, pressedDown);
- }
+{
+    #pragma unused (remoteControl)
+    memere->hello(event, pressedDown);
+}
 
 -(void) setupBase: (RoxeePlatipus::RemoteMerguez *) merguez
  {

@@ -15,6 +15,7 @@
 @implementation SPMediaKeyTapExampleAppDelegate
 -(void)mediaKeyTap:(SPMediaKeyTap*)keyTap receivedMediaKeyEvent:(NSEvent*)event
 {
+    #pragma unused (keyTap)
     NSAssert([event type] == NSSystemDefined && [event subtype] == SPSystemDefinedEventMediaKeys, @"Unexpected NSEvent in mediaKeyTap:receivedMediaKeyEvent:");
     // here be dragons...
     int keyCode = (([event data1] & 0xFFFF0000) >> 16);
